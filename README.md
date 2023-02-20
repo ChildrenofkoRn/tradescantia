@@ -1,24 +1,10 @@
-# README
+# Tradescantia
+[![badge-license][badge-license]][license]
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Tradescantia - portfolio project on Rails
 
-Things you may want to cover:
+Watch the development process here: [Pivotal Tracker][tracker]
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[license]: https://github.com/ChildrenofkoRn/tradescantia/blob/main/LICENSE "MIT"
+[badge-license]: https://img.shields.io/github/license/ChildrenofkoRn/tradescantia?color=23239393 "license"
+[tracker]: https://www.pivotaltracker.com/n/projects/2631941
