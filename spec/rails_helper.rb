@@ -31,6 +31,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   Capybara.javascript_driver = :selenium_chrome_headless
   # Capybara.default_max_wait_time = 20
