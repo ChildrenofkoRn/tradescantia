@@ -65,6 +65,7 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'capybara-email'
   # gem 'launchy'
+  gem 'with_model'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
