@@ -23,6 +23,7 @@ feature 'User can see a list of reviews or a review', %q(
 
       expect(page).to have_content(review.title)
       expect(page).to have_content(review.body)
+      expect(page).to have_content(review.author.username)
     end
   end
 

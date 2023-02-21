@@ -23,6 +23,7 @@ feature 'User can create review', %q{
 
       expect(page).to have_content 'Review title'
       expect(page).to have_content 'Review text'
+      expect(page).to have_content user.username
     end
 
     scenario 'add a review with errors' do

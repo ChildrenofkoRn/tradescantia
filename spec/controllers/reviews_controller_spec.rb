@@ -28,6 +28,10 @@ RSpec.describe ReviewsController, type: :controller do
           expect { review_create }.to change(Review, :count).by(1)
         end
 
+        it 'saves a new review to the logged user' do
+          expect { review_create }.to change(user.reviews, :count).by(1)
+        end
+
         it 'redirects to show view' do
           expect(review_create).to redirect_to assigns(:review)
         end
@@ -92,7 +96,7 @@ RSpec.describe ReviewsController, type: :controller do
       context 'with valid attributes' do
         let(:review_create) { post :create, params: { review: attributes_for(:review) } }
 
-        it 'didn\'t saves a new post to DB' do
+        it 'didn\'t saves a new review to DB' do
           expect { review_create }.to_not change(Review, :count)
         end
 

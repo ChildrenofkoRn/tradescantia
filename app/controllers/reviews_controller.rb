@@ -3,11 +3,11 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
 
   def new
-    @review = Review.new
+    @review = current_user.reviews.new
   end
 
   def create
-    @review = Review.new(review_params)
+    @review = current_user.reviews.new(review_params)
     if @review.save
       redirect_to review_path(@review)
     else
