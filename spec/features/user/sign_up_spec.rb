@@ -25,7 +25,7 @@ feature 'User can sign up', %q(
     current_email.click_link 'Confirm my account'
     expect(page).to have_content 'Your email address has been successfully confirmed.'
 
-    fill_in 'Email', with: user.email
+    fill_in 'Login', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Log in'
 

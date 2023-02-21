@@ -30,7 +30,7 @@ feature 'User can see a list of reviews or a review', %q(
   describe 'Authenticated user' do
 
     background do
-      sign_in(create(:user))
+      log_in(create(:user))
       visit reviews_path
     end
 

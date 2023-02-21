@@ -10,7 +10,7 @@ feature 'User can create review', %q{
     given(:user) { create(:user) }
 
     background do
-      sign_in(user)
+      log_in(user)
 
       visit reviews_path
       click_on 'Add review'
