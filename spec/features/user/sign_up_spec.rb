@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 feature 'User can sign up', %q(
   I'd like to be able to sign up
   to create your own content and comment on other users

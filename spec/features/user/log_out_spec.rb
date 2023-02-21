@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 feature 'User can log out', %q(
   I want to log out
 ) do
