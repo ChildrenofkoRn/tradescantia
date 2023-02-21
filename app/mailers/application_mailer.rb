@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: %{"Tradescantia" <#{Devise.mailer_sender}>}
   layout 'mailer'
 end

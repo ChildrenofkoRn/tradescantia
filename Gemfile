@@ -31,6 +31,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # already initialized constant Net::ProtocRetryError
 gem 'net-http'
 
+# AUTH
+gem 'devise', '=4.8.1'
+
 # UI
 gem 'slim-rails'
 
@@ -60,6 +63,8 @@ group :test do
   gem 'webdrivers'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'capybara-email'
+  # gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
