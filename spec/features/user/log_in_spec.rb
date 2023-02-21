@@ -12,28 +12,28 @@ feature 'User can log in', %q{
     click_on 'Log in'
   end
 
-  scenario 'Registered user tries to log in via email' do
-    fill_in 'Login', with: user.email
-    fill_in 'Password', with: user.password
+  def try_login(login, password)
+    fill_in 'Login', with: login
+    fill_in 'Password', with: password
     click_button 'Log in'
+  end
+
+  scenario 'Registered user tries to log in via email' do
+    try_login(user.email, user.password)
 
     expect(page).to have_content 'Signed in successfully.'
     expect(page).to have_no_link('Log in')
   end
 
   scenario 'Registered user tries to log in via username' do
-    fill_in 'Login', with: user.username
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    try_login(user.username, user.password)
 
     expect(page).to have_content 'Signed in successfully.'
     expect(page).to have_no_link('Log in')
   end
 
   scenario 'Unregistered user tries to log in' do
-    fill_in 'Login', with: 'this@email.notfound'
-    fill_in 'Password', with: '0987654321'
-    click_button 'Log in'
+    try_login('this@email.notfound', '0987654321')
 
     expect(page).to have_content 'Invalid Login or password.'
   end
