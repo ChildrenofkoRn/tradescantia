@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 feature 'User can create review', %q{
-  with own title & text
+  As an authenticated user
+  I'd like to be able create a review
+  with my title & text
 } do
 
-  describe 'Unauthenticated user' do
+  describe 'Authenticated user' do
+    given(:user) { create(:user) }
+
     background do
+      sign_in(user)
+
       visit reviews_path
       click_on 'Add review'
     end
@@ -24,6 +30,19 @@ feature 'User can create review', %q{
 
       expect(page).to have_content "Title can't be blank"
       expect(page).to have_content "Body can't be blank"
+    end
+  end
+
+  describe 'Unauthenticated user tries to' do
+
+    scenario 'add a review' do
+      visit reviews_path
+      click_on 'Add review'
+
+      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+
+      expect(page).to_not have_field("Title")
+      expect(page).to_not have_button("Create")
     end
   end
 
