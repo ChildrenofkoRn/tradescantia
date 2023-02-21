@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
 
+  before_action :authenticate_user!, except: %i[show index]
+
   def new
     @review = Review.new
   end
