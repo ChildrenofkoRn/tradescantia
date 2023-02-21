@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
 
-  belongs_to :author, class_name: 'User'
+  include Authorable
 
   validates :title, presence: true
   validates :body, presence: true

@@ -6,4 +6,6 @@ RSpec.describe Review, type: :model do
 
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:body) }
+
+  it_behaves_like 'be Modulable', %w[Authorable]
 end
