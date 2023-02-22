@@ -5,12 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, authentication_keys: [:login]
 
+  attr_writer :login
+
   has_many :reviews, foreign_key: 'author_id', dependent: :destroy
 
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
-
-  attr_writer :login
+  validates :email, presence: true, uniqueness: { case_sensitive: false },
+            format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
+  validates :username, presence: true, uniqueness: { case_sensitive: false },
+            format: { with: /\A[-_a-zA-Z0-9]+\z/, message: "allows letters, numbers and: - _" },
+            length: { minimum: 1, maximum: 40 }
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

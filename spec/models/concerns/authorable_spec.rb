@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Authorable' do
+RSpec.describe 'concern Authorable' do
 
   with_model :WithAuthorable do
     table do |t|
