@@ -19,7 +19,7 @@ RSpec.describe ReviewsController, type: :controller do
       end
     end
 
-    describe "GET #create" do
+    describe "POST #create" do
 
       context 'with valid attributes' do
         let(:attrs_review) { attributes_for(:review) }
@@ -60,19 +60,32 @@ RSpec.describe ReviewsController, type: :controller do
     end
 
     describe "GET #edit" do
-      let!(:review) { create(:review) }
-      before  { get :edit, params: { id: review } }
 
-      it "assigns the review" do
-        expect(assigns(:review)).to eq review
+      context 'by author' do
+        let!(:review) { create(:review, author: user) }
+        before  { get :edit, params: { id: review } }
+
+        it "assigns the review" do
+          expect(assigns(:review)).to eq review
+        end
+
+        it 'renders edit view' do
+          expect(response).to render_template :edit
+        end
+
       end
 
-      it 'renders edit view' do
-        expect(response).to render_template :edit
+      context 'by non-author' do
+        let!(:another_authors_review) { create(:review) }
+        before  { get :edit, params: { id: another_authors_review } }
+
+        it 'redirects to show with flash message' do
+          expect(response).to redirect_to another_authors_review
+          expect(flash[:notice]).to eql("You have no rights to do this.")
+        end
       end
+
     end
-
-
 
     describe "GET #show" do
       let(:review) { create(:review) }
@@ -102,7 +115,7 @@ RSpec.describe ReviewsController, type: :controller do
       end
     end
 
-    describe "POST #update" do
+    describe "PATCH #update" do
       let(:init_attrs_review) { attributes_for(:review) }
       let(:new_attrs_review) { attributes_for(:review) }
 
@@ -192,7 +205,7 @@ RSpec.describe ReviewsController, type: :controller do
       end
     end
 
-    describe "GET #create" do
+    describe "POST #create" do
 
       context 'with valid attributes' do
         let(:review_create) { post :create, params: { review: attributes_for(:review) } }
@@ -217,7 +230,7 @@ RSpec.describe ReviewsController, type: :controller do
       end
     end
 
-    describe "POST #update" do
+    describe "PATCH #update" do
 
       let(:init_attr_review) { attributes_for(:review) }
       let(:review_new_attrs) { attributes_for(:review) }

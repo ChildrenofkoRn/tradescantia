@@ -1,6 +1,8 @@
 class ReviewsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show index]
+  before_action :load_review, only: %i[show edit update]
+  before_action :allow_only_author, only: %i[edit update]
 
   def new
     @review = current_user.reviews.new
@@ -16,17 +18,9 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
   end
 
   def update
-    @review = Review.find(params[:id])
-
-    unless current_user.author_of?(@review)
-      redirect_to @review, notice: 'You have no rights to do this.'
-      return true
-    end
-
     if @review.update(review_params)
       redirect_to review_path(@review)
     else
@@ -35,7 +29,6 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review.find(params[:id])
   end
 
   def index
@@ -46,6 +39,16 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:title, :body)
+  end
+
+  def load_review
+    @review = Review.find(params[:id])
+  end
+
+  def allow_only_author
+    unless current_user.author_of?(@review)
+      redirect_to @review, notice: 'You have no rights to do this.'
+    end
   end
   
 end
