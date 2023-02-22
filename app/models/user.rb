@@ -28,4 +28,8 @@ class User < ApplicationRecord
     @login || self.username || self.email
   end
 
+  def author_of?(resource)
+    id == resource.author_id
+  end
+
 end

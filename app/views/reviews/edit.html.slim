@@ -1,0 +1,18 @@
+.h2 Edit review
+
+= render 'shared/errors', resource: @review
+
+= form_with model: @review do |form|
+
+  p
+    = form.label :title
+    = form.text_field :title
+
+  p
+    = form.label :body
+    = form.text_area :body
+
+  p
+    = form.submit "Save"
+
+p= link_to 'Back', review_path(@review)

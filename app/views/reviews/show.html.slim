@@ -5,3 +5,10 @@ p
   = @review.author.username
 
 p= @review.body
+
+- if current_user&.author_of?(@review)
+  ul.review_actions
+    li= link_to 'Edit', edit_review_path(@review)
+
+
+p= link_to 'Back', reviews_path
