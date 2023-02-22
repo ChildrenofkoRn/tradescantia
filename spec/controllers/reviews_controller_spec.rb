@@ -87,6 +87,45 @@ RSpec.describe ReviewsController, type: :controller do
 
     end
 
+    describe "DELETE #destroy" do
+      context 'by author' do
+
+        let!(:review) { create(:review, author: user) }
+        let(:review_delete) { delete :destroy, params: { id: review } }
+
+        it "assigns the review" do
+          review_delete
+          expect(assigns(:review)).to eq review
+        end
+
+        it 'delete the review from DB' do
+          expect { review_delete }.to change(Review, :count).by(-1)
+        end
+
+        it 'renders index view' do
+          review_delete
+          expect(response).to redirect_to reviews_path
+          expect(flash[:notice]).to eql("The review \"#{review.title}\" was successfully deleted.")
+        end
+      end
+
+      context 'by non-author' do
+
+        let!(:another_authors_review) { create(:review) }
+        let(:review_delete) { delete :destroy, params: { id: another_authors_review } }
+
+        it 'didn\'t delete the review from DB' do
+          expect { review_delete }.to_not change(Review, :count)
+        end
+
+        it 'redirects to show with flash message' do
+          expect(review_delete).to redirect_to another_authors_review
+          expect(flash[:notice]).to eql("You have no rights to do this.")
+        end
+      end
+
+    end
+
     describe "GET #show" do
       let(:review) { create(:review) }
 
@@ -247,6 +286,20 @@ RSpec.describe ReviewsController, type: :controller do
 
       it 'redirects to login page' do
         expect(review_update).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "DELETE #destroy" do
+      let!(:review) { create(:review) }
+      let(:review_delete) { delete :destroy, params: { id: review } }
+
+      it 'didn\'t delete the review from DB' do
+        expect { review_delete }.to_not change(Review, :count)
+      end
+
+      it 'redirects to login page' do
+        review_delete
+        expect(response).to redirect_to new_user_session_path
       end
     end
 

@@ -1,5 +1,5 @@
-.reviews
+ul.reviews
   - @reviews.each do |review|
-    p= link_to review.title, review
+    li= link_to review.title, review
 
 p= link_to 'Add review', new_review_path

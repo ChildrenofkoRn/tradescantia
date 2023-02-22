@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show index]
-  before_action :load_review, only: %i[show edit update]
-  before_action :allow_only_author, only: %i[edit update]
+  before_action :load_review, only: %i[show edit update destroy]
+  before_action :allow_only_author, only: %i[edit update destroy]
 
   def new
     @review = current_user.reviews.new
@@ -26,6 +26,11 @@ class ReviewsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @review.destroy
+    redirect_to reviews_path, notice: "The review \"#{@review.title}\" was successfully deleted."
   end
 
   def show
