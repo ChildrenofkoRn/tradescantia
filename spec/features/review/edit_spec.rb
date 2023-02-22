@@ -66,4 +66,5 @@ feature 'Author can edit a review', %q{
       expect(page).to_not have_link 'Edit'
     end
   end
+
 end
