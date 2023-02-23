@@ -1,0 +1,15 @@
+nav.nav.col-12.col-sm-auto.mb-3.mb-sm-0.me-lg-3.justify-content-center
+  - if user_signed_in?
+    .nav-item.dropdown
+      a#headUserMenu.nav-link.dropdown-toggle[href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"]
+        = current_user.username
+      ul.dropdown-menu[aria-labelledby="navbarScrollingDropdown"]
+        li
+          a.dropdown-item.disabled[href="#" tabindex="-1" aria-disabled="true"]
+            | Profile
+        li
+          hr.dropdown-divider
+        li
+          = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'dropdown-item'
+  - else
+    = link_to 'Log in', new_user_session_path, class: 'nav-link'

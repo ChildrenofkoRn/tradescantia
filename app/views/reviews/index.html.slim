@@ -1,5 +1,7 @@
-ul.reviews
+h1= 'Availiable reviews:'
+
+ul.reviews.m-4
   - @reviews.each do |review|
-    li= link_to review.title, review
+    li= link_to review.title, review, class: 'list-group-item'
 
 p= link_to 'Add review', new_review_path
