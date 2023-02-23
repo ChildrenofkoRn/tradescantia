@@ -9,8 +9,4 @@ header.mb-3.border-bottom.bg-light
         a.nav-link.disabled
           | Disabled
 
-      nav.nav.col-12.col-sm-auto.mb-3.mb-sm-0.me-lg-3.justify-content-center
-        - if user_signed_in?
-          = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
-        - else
-          = link_to 'Log in', new_user_session_path, class: 'nav-link'
+      = render "shared/users_menu"
