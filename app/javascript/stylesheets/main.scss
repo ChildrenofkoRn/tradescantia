@@ -1,14 +1,18 @@
 
-body  {
-  font-family: 'Roboto', sans-serif;
-}
-
 .main-bg {
   background: linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
   min-height: 100vh;
-  min-width: 100vh;
+  //min-width: 100vh;
 }
 
 .bg-light {
   background-color: #f7f6f9 !important;
+}
+
+@media only screen and (min-width : 960px) {
+  .container { max-width: 960px; }
+}
+
+@media only screen and (min-width: 576px) {
+  .devise { max-width: 450px !important; }
 }
