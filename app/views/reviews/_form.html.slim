@@ -1,0 +1,15 @@
+= form_with model: @review do |form|
+
+  .mb-3.w-auto
+    = form.label :title, class: 'form-label'
+    = form.text_area :title, class: 'form-control form-control-sm w-75', rows: "1"
+
+  .mb-3.w-auto
+    = form.label :body, class: 'form-label'
+    = form.text_area :body, class: 'form-control'
+
+  .mb-3
+    - if @review.new_record?
+      = form.submit "Create"
+    - else
+      = form.submit "Save"
