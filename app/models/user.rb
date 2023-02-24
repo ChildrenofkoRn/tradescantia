@@ -3,7 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, authentication_keys: [:login]
+         :confirmable, :omniauthable,
+         authentication_keys: [:login],
+         omniauth_providers: [:github]
 
   attr_writer :login
 
