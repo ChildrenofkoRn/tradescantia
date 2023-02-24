@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   describe 'associations' do
-    it { should have_many(:reviews) }
+    it { should have_many(:reviews).dependent(:destroy) }
+    it { should have_many(:authorizations).dependent(:destroy) }
   end
 
   describe 'validations' do
