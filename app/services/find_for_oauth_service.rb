@@ -6,15 +6,15 @@ class FindForOauthService
     if auth.try(:info).try(:email).blank?
       return User.new
     else
-      downcased_email = auth.info.email.downcase
-      user = User.find_by(email: downcased_email)
+      email = auth.info.email
+      user = User.find_by("lower(email) = ?", email.downcase)
     end
 
     User.transaction do
       unless user
         password = Devise.friendly_token[0, 20]
         username = get_username(auth)
-        user = User.create!(username: username, email: downcased_email,
+        user = User.create!(username: username, email: email,
                             password: password, password_confirmation: password)
       end
 
