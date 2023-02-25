@@ -35,6 +35,8 @@ RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
   config.include ControllerHelpers, type: :controller
   config.extend WithModel
+  config.include OmniauthHelpers, type: :feature
+  OmniAuth.config.test_mode = true
 
   Capybara.javascript_driver = :selenium_chrome_headless
   # Capybara.default_max_wait_time = 20
