@@ -33,6 +33,9 @@ gem 'net-http'
 
 # AUTH
 gem 'devise', '=4.8.1'
+gem 'omniauth'
+gem "omniauth-rails_csrf_protection"
+gem 'omniauth-github'
 
 # UI
 gem 'slim-rails'

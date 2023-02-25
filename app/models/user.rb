@@ -3,11 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, authentication_keys: [:login]
+         :confirmable, :omniauthable,
+         authentication_keys: [:login],
+         omniauth_providers: [:github]
 
   attr_writer :login
 
   has_many :reviews, foreign_key: 'author_id', dependent: :destroy
+  has_many :authorizations, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { case_sensitive: false },
             format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
@@ -30,6 +33,10 @@ class User < ApplicationRecord
 
   def author_of?(resource)
     id == resource.author_id
+  end
+
+  def self.find_for_oauth(auth)
+    FindForOauthService.call(auth)
   end
 
 end
