@@ -23,4 +23,13 @@ RSpec.describe User, type: :model do
       it { should validate_length_of(:username).is_at_least(1).is_at_most(40) }
     end
   end
+
+  describe '.find_for_oauth' do
+    let(:auth) { OmniAuth::AuthHash.new(provider: 'github', uid: '2255')}
+
+    it 'calls FindForOauthService' do
+      expect(FindForOauthService).to receive(:call).with(auth)
+      User.find_for_oauth(auth)
+    end
+  end
 end
