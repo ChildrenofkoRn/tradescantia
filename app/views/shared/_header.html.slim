@@ -1,0 +1,12 @@
+header.mb-3.border-bottom.bg-light
+  .container
+    .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
+      nav.nav.col-12.col-sm-auto.me-sm-auto.mb-2.justify-content-center.mb-md-0
+        = link_to 'Home',  root_path, class: 'nav-link'
+        = link_to 'Reviews', reviews_path, class: 'nav-link'
+        a.nav-link[href="#"]
+          | Link
+        a.nav-link.disabled
+          | Disabled
+
+      = render "shared/users_menu"

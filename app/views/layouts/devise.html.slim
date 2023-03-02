@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | Tradescantia User
+    = render "shared/meta"
+
+  body
+    .main-bg
+      = render "shared/header"
+
+      .container.p-4.mt-5.bg-light.border.rounded.devise
+        = render "shared/flash"
+
+        .row
+          = yield
