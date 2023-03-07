@@ -10,6 +10,8 @@ class User < ApplicationRecord
   attr_writer :login
 
   has_many :reviews, foreign_key: 'author_id', dependent: :destroy
+  has_many :ranks, foreign_key: 'author_id', dependent: :destroy
+
   has_many :authorizations, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { case_sensitive: false },
