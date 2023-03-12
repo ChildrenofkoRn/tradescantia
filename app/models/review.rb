@@ -6,5 +6,9 @@ class Review < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
+
+  def ranking
+    ranks.average(:score)
+  end
   
 end

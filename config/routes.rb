@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   root 'reviews#index'
 
-  resources :reviews, only: %i[new create edit update destroy delete show index]
+  resources :reviews, only: %i[new create edit update destroy delete show index] do
+    member do
+      patch :ranking
+    end
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

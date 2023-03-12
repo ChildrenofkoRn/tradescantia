@@ -19,6 +19,124 @@ RSpec.describe ReviewsController, type: :controller do
       end
     end
 
+    describe "PUTCH #ranking" do
+
+      context 'by author' do
+        let(:review) { create(:review, author: user ) }
+        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :json }
+
+        it "assigns the review" do
+          set_rank
+          expect(assigns(:review)).to eq review
+        end
+
+        it 'response should be json' do
+          set_rank
+          expect( response.header['Content-Type'] ).to include 'application/json'
+        end
+
+        it 'doesn\'t save a new rank to DB' do
+          expect { set_rank }.to_not change(review.ranks, :count)
+        end
+
+        it 'response status should be 422' do
+          set_rank
+          expect( response.status ).to eq(422)
+        end
+
+        it 'response contains an error message' do
+          set_rank
+          expected = { errors: "#{review.class}-author cannot rank" }
+          actual = JSON.parse(response.body, symbolize_names: true)
+          expect( actual ).to eq expected
+        end
+      end
+
+      context 'by non-author' do
+        let(:author) { create(:user) }
+        let(:another_authors_review) { create(:review ) }
+
+        context 'with valid attributes' do
+
+          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :json }
+
+          it "assigns the review" do
+            set_rank
+            expect(assigns(:review)).to eq another_authors_review
+          end
+
+          it 'response should be json' do
+            set_rank
+            expect( response.header['Content-Type'] ).to include 'application/json'
+          end
+
+          it 'saves a new rank to DB' do
+            expect { set_rank }.to change(another_authors_review.ranks, :count).by(1)
+          end
+
+          it 'saves a new rank to logged user' do
+            expect { set_rank }.to change(user.ranks, :count).by(1)
+          end
+        end
+
+        context 'already runked' do
+
+          before {  patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :json }
+
+          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 7 }, format: :json }
+
+          it "assigns the review" do
+            set_rank
+            expect(assigns(:review)).to eq another_authors_review
+          end
+
+          it 'response should be json' do
+            set_rank
+            expect( response.header['Content-Type'] ).to include 'application/json'
+          end
+
+          it 'doesn\'t save a new rank to DB' do
+            expect { set_rank }.to_not change(another_authors_review.ranks, :count)
+          end
+
+          it 'response status should be 422' do
+            set_rank
+            expect( response.status ).to eq(422)
+          end
+
+          it 'response contains an error message' do
+            set_rank
+            expected = { errors: "You already ranked for this review!" }
+            actual = JSON.parse(response.body, symbolize_names: true)
+            expect( actual ).to eq expected
+          end
+        end
+
+        context 'with invalid attributes' do
+          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 10 }, format: :json }
+
+          it "assigns the review" do
+            set_rank
+            expect(assigns(:review)).to eq another_authors_review
+          end
+
+          it 'response should be json' do
+            set_rank
+            expect( response.header['Content-Type'] ).to include 'application/json'
+          end
+
+          it 'doesn\'t save a new rank to DB' do
+            expect { set_rank }.to_not change(another_authors_review.ranks, :count)
+          end
+
+          it 'response status should be 422' do
+            set_rank
+            expect( response.status ).to eq(422)
+          end
+        end
+      end
+    end
+
     describe "POST #create" do
 
       context 'with valid attributes' do
@@ -235,6 +353,25 @@ RSpec.describe ReviewsController, type: :controller do
   end
 
   describe "Unauthenticated user" do
+
+    describe "POST #ranking" do
+        let(:review) { create(:review ) }
+        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :json }
+
+        it 'response should be json' do
+          set_rank
+          expect( response.header['Content-Type'] ).to include 'application/json'
+        end
+
+        it 'doesn\'t save a new rank to DB' do
+          expect { set_rank }.to_not change(review.ranks, :count)
+        end
+
+        it 'response status should be 401' do
+          set_rank
+          expect( response.status ).to eq(401)
+        end
+    end
 
     describe "GET #new" do
       before  { get :new }
