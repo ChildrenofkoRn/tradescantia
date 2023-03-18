@@ -1,0 +1,10 @@
+<% if response.successful? %>
+  document.querySelector('.rank').innerHTML = "<%= j render 'shared/ranking', resource: @review %>";
+<% else %>
+  (function() {
+    const placeholder = document.createElement("div")
+    placeholder.innerHTML = "<%= j render 'shared/flash' %>"
+    let row = document.querySelector('.row')
+    document.querySelector('.container.bg-light').insertBefore(placeholder.firstElementChild, row)
+    })();
+<% end %>

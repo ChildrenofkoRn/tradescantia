@@ -23,7 +23,7 @@ RSpec.describe ReviewsController, type: :controller do
 
       context 'by author' do
         let(:review) { create(:review, author: user ) }
-        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :json }
+        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :js }
 
         it "assigns the review" do
           set_rank
@@ -32,7 +32,7 @@ RSpec.describe ReviewsController, type: :controller do
 
         it 'response should be json' do
           set_rank
-          expect( response.header['Content-Type'] ).to include 'application/json'
+          expect( response.header['Content-Type'] ).to include 'text/javascript'
         end
 
         it 'doesn\'t save a new rank to DB' do
@@ -46,9 +46,7 @@ RSpec.describe ReviewsController, type: :controller do
 
         it 'response contains an error message' do
           set_rank
-          expected = { errors: "#{review.class}-author cannot rank" }
-          actual = JSON.parse(response.body, symbolize_names: true)
-          expect( actual ).to eq expected
+          should set_flash.now[:alert].to("#{review.class} author cannot rank")
         end
       end
 
@@ -58,7 +56,7 @@ RSpec.describe ReviewsController, type: :controller do
 
         context 'with valid attributes' do
 
-          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :json }
+          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :js }
 
           it "assigns the review" do
             set_rank
@@ -67,7 +65,7 @@ RSpec.describe ReviewsController, type: :controller do
 
           it 'response should be json' do
             set_rank
-            expect( response.header['Content-Type'] ).to include 'application/json'
+            expect( response.header['Content-Type'] ).to include 'text/javascript'
           end
 
           it 'saves a new rank to DB' do
@@ -81,9 +79,9 @@ RSpec.describe ReviewsController, type: :controller do
 
         context 'already runked' do
 
-          before {  patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :json }
+          before {  patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :js }
 
-          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 7 }, format: :json }
+          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 7 }, format: :js }
 
           it "assigns the review" do
             set_rank
@@ -92,7 +90,7 @@ RSpec.describe ReviewsController, type: :controller do
 
           it 'response should be json' do
             set_rank
-            expect( response.header['Content-Type'] ).to include 'application/json'
+            expect( response.header['Content-Type'] ).to include 'text/javascript'
           end
 
           it 'doesn\'t save a new rank to DB' do
@@ -106,14 +104,12 @@ RSpec.describe ReviewsController, type: :controller do
 
           it 'response contains an error message' do
             set_rank
-            expected = { errors: "You already ranked for this review!" }
-            actual = JSON.parse(response.body, symbolize_names: true)
-            expect( actual ).to eq expected
+            should set_flash.now[:alert].to("You already ranked for this review!")
           end
         end
 
         context 'with invalid attributes' do
-          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 10 }, format: :json }
+          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 10 }, format: :js }
 
           it "assigns the review" do
             set_rank
@@ -122,7 +118,7 @@ RSpec.describe ReviewsController, type: :controller do
 
           it 'response should be json' do
             set_rank
-            expect( response.header['Content-Type'] ).to include 'application/json'
+            expect( response.header['Content-Type'] ).to include 'text/javascript'
           end
 
           it 'doesn\'t save a new rank to DB' do
@@ -354,7 +350,7 @@ RSpec.describe ReviewsController, type: :controller do
 
   describe "Unauthenticated user" do
 
-    describe "POST #ranking" do
+    describe "PUTCH #ranking" do
         let(:review) { create(:review ) }
         let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :json }
 

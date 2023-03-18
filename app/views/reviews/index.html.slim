@@ -2,6 +2,9 @@ h1= 'Availiable reviews:'
 
 ul.reviews.m-4
   - @reviews.each do |review|
-    li= link_to review.title, review, class: 'list-group-item'
+    li= link_to review, class: 'list-group-item'
+      span
+        => review.title
+        => render "shared/ranks_stars", rank: review.rank, count: review.ranks_count
 
 p= link_to 'Add review', new_review_path

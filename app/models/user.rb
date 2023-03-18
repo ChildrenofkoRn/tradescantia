@@ -37,6 +37,10 @@ class User < ApplicationRecord
     id == resource.author_id
   end
 
+  def ranked?(resource)
+    ranks.where(rankable: resource).present?
+  end
+
   def self.find_for_oauth(auth)
     FindForOauthService.call(auth)
   end

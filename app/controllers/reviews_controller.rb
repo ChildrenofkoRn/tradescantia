@@ -42,29 +42,27 @@ class ReviewsController < ApplicationController
 
   def ranking
     if current_user.author_of?(@review)
-      render_json_errors("#{@review.class}-author cannot rank")
+      render_ranking_alert("#{@review.class} author cannot rank")
     else
       rank = Rank.find_or_initialize_by(author: current_user, rankable: @review)
 
       if rank.persisted?
-        render_json_errors("You already ranked for this review!")
-        return
+        render_ranking_alert("You already ranked for this review!")
       end
 
       rank.score = params[:rank].to_i
 
-      if rank.save
-        render json: { ranking: "#{@review.ranking}" }
-      else
-        render_json_errors(rank.errors)
+      unless rank.save
+        render_ranking_alert(rank.errors)
       end
     end
   end
 
   private
 
-  def render_json_errors(errors)
-    render json: { errors: errors }, status: :unprocessable_entity
+  def render_ranking_alert(errors)
+    flash.now.alert = errors
+    render status: 422
   end
 
   def review_params

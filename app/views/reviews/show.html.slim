@@ -4,6 +4,9 @@ p
   = 'Author: '
   = @review.author.username
 
+p.rank
+  = render "shared/ranking", resource: @review
+
 p= @review.body
 
 - if current_user&.author_of?(@review)

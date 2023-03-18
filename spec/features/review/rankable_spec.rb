@@ -17,11 +17,18 @@ feature 'User can give a ranking after reading a review', %q(
     describe 'as a review non-author' do
 
       given(:review) { create(:review) }
-
-      scenario 'to give a ranking' do
+      background do
         visit review_path(review)
+      end
 
-        expect(page).to have_link 'ranking'
+      (Rank::RANGE).to_a.each do |score|
+        scenario "to give a ranking #{score}", js: true do
+          click_link(href: "/reviews/#{review.id}/ranking?rank=#{score}")
+          sleep 0.5
+          expect(page).to_not have_link(href: /\/reviews\/#{review.id}\/ranking\?rank=/, wait: 0.5)
+          page.find(".rank").has_css?(".bi-star-fill")
+          expect(page).to have_content("Total: avarage: #{score} (1 times)")
+        end
       end
 
     end
@@ -33,7 +40,7 @@ feature 'User can give a ranking after reading a review', %q(
       scenario 'tries to give a ranking' do
         visit review_path(own_review)
 
-        expect(page).to_not have_link 'ranking'
+        expect(page).to_not have_link(href: /\/reviews\/#{own_review.id}\/ranking\?rank=/)
       end
     end
 
@@ -46,7 +53,7 @@ feature 'User can give a ranking after reading a review', %q(
     scenario 'tries to give a ranking' do
       visit review_path(review)
 
-      expect(page).to_not have_link 'ranking'
+      expect(page).to_not have_link(href: /\/reviews\/#{review.id}\/ranking\?rank=/)
     end
   end
 
