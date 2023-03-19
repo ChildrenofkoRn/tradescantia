@@ -352,11 +352,11 @@ RSpec.describe ReviewsController, type: :controller do
 
     describe "PUTCH #ranking" do
         let(:review) { create(:review ) }
-        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :json }
+        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :js }
 
         it 'response should be json' do
           set_rank
-          expect( response.header['Content-Type'] ).to include 'application/json'
+          expect( response.header['Content-Type'] ).to include 'text/javascript'
         end
 
         it 'doesn\'t save a new rank to DB' do

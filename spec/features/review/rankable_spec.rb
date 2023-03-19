@@ -25,9 +25,9 @@ feature 'User can give a ranking after reading a review', %q(
         scenario "to give a ranking #{score}", js: true do
           click_link(href: "/reviews/#{review.id}/ranking?rank=#{score}")
           sleep 0.5
-          expect(page).to_not have_link(href: /\/reviews\/#{review.id}\/ranking\?rank=/, wait: 0.5)
+          expect(page).to_not have_link(href: /\/reviews\/#{review.id}\/ranking\?rank=/)
           page.find(".rank").has_css?(".bi-star-fill")
-          expect(page).to have_content("Total: avarage: #{score} (1 times)")
+          expect(page).to have_content("Total: avarage: #{score.to_f} (1 times)")
         end
       end
 

@@ -38,9 +38,21 @@ RSpec.configure do |config|
   config.include OmniauthHelpers, type: :feature
   OmniAuth.config.test_mode = true
 
-  Capybara.javascript_driver = :selenium_chrome_headless
+
+  # Fix WARN Selenium [DEPRECATION] [:capabilities] The :capabilities parameter
+  Capybara.register_driver :chrome_headless do |app|
+    Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    clear_session_storage: true,
+    clear_local_storage: true,
+    options: Selenium::WebDriver::Chrome::Options.new(
+    args: %w[headless disable-gpu no-sandbox window-size=1024,768],
+    )
+  end
+
+  # Selenium::WebDriver.logger.ignore(:browser_options)
+  Capybara.javascript_driver = :chrome_headless
   # Capybara.default_max_wait_time = 20
-  Selenium::WebDriver.logger.ignore(:browser_options)
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
