@@ -1,6 +1,9 @@
 class ReviewsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show index]
+
+  include Ranked
+
   before_action :load_review, only: %i[show edit update destroy ranking]
   before_action :allow_only_author, only: %i[edit update destroy]
 
@@ -40,33 +43,10 @@ class ReviewsController < ApplicationController
     @reviews = Review.all
   end
 
-  def ranking
-    if current_user.author_of?(@review)
-      render_ranking_alert("#{@review.class} author cannot rank")
-    else
-      rank = Rank.find_or_initialize_by(author: current_user, rankable: @review)
-
-      if rank.persisted?
-        render_ranking_alert("You already ranked for this review!")
-      end
-
-      rank.score = params[:rank].to_i
-
-      unless rank.save
-        render_ranking_alert(rank.errors)
-      end
-    end
-  end
-
   private
 
-  def render_ranking_alert(errors)
-    flash.now.alert = errors
-    render status: 422
-  end
-
   def review_params
-    params.require(:review).permit(:title, :body, :rank)
+    params.require(:review).permit(:title, :body, Ranked::STRONG_PARAMS)
   end
 
   def load_review

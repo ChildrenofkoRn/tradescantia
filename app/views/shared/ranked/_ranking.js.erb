@@ -1,5 +1,5 @@
 <% if response.successful? %>
-  document.querySelector('.rank').innerHTML = "<%= j render 'shared/ranking', resource: @review %>";
+  document.querySelector('.rank').innerHTML = "<%= j render 'shared/rank', resource: @rankable %>";
 <% else %>
   (function() {
     const placeholder = document.createElement("div")

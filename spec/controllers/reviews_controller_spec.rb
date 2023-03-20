@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ReviewsController, type: :controller do
 
+  it_behaves_like 'be Modulable', %w[Ranked]
+
   describe "Authenticated user" do
 
     let(:user) { create(:user) }
@@ -16,120 +18,6 @@ RSpec.describe ReviewsController, type: :controller do
 
       it 'renders new view' do
         expect(response).to render_template :new
-      end
-    end
-
-    describe "PUTCH #ranking" do
-
-      context 'by author' do
-        let(:review) { create(:review, author: user ) }
-        let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :js }
-
-        it "assigns the review" do
-          set_rank
-          expect(assigns(:review)).to eq review
-        end
-
-        it 'response should be json' do
-          set_rank
-          expect( response.header['Content-Type'] ).to include 'text/javascript'
-        end
-
-        it 'doesn\'t save a new rank to DB' do
-          expect { set_rank }.to_not change(review.ranks, :count)
-        end
-
-        it 'response status should be 422' do
-          set_rank
-          expect( response.status ).to eq(422)
-        end
-
-        it 'response contains an error message' do
-          set_rank
-          should set_flash.now[:alert].to("#{review.class} author cannot rank")
-        end
-      end
-
-      context 'by non-author' do
-        let(:author) { create(:user) }
-        let(:another_authors_review) { create(:review ) }
-
-        context 'with valid attributes' do
-
-          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :js }
-
-          it "assigns the review" do
-            set_rank
-            expect(assigns(:review)).to eq another_authors_review
-          end
-
-          it 'response should be json' do
-            set_rank
-            expect( response.header['Content-Type'] ).to include 'text/javascript'
-          end
-
-          it 'saves a new rank to DB' do
-            expect { set_rank }.to change(another_authors_review.ranks, :count).by(1)
-          end
-
-          it 'saves a new rank to logged user' do
-            expect { set_rank }.to change(user.ranks, :count).by(1)
-          end
-        end
-
-        context 'already runked' do
-
-          before {  patch :ranking, params: { id: another_authors_review, rank: 5 }, format: :js }
-
-          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 7 }, format: :js }
-
-          it "assigns the review" do
-            set_rank
-            expect(assigns(:review)).to eq another_authors_review
-          end
-
-          it 'response should be json' do
-            set_rank
-            expect( response.header['Content-Type'] ).to include 'text/javascript'
-          end
-
-          it 'doesn\'t save a new rank to DB' do
-            expect { set_rank }.to_not change(another_authors_review.ranks, :count)
-          end
-
-          it 'response status should be 422' do
-            set_rank
-            expect( response.status ).to eq(422)
-          end
-
-          it 'response contains an error message' do
-            set_rank
-            should set_flash.now[:alert].to("You already ranked for this review!")
-          end
-        end
-
-        context 'with invalid attributes' do
-          let(:set_rank) { patch :ranking, params: { id: another_authors_review, rank: 10 }, format: :js }
-
-          it "assigns the review" do
-            set_rank
-            expect(assigns(:review)).to eq another_authors_review
-          end
-
-          it 'response should be json' do
-            set_rank
-            expect( response.header['Content-Type'] ).to include 'text/javascript'
-          end
-
-          it 'doesn\'t save a new rank to DB' do
-            expect { set_rank }.to_not change(another_authors_review.ranks, :count)
-          end
-
-          it 'response status should be 422' do
-            set_rank
-            expect( response.status ).to eq(422)
-          end
-        end
       end
     end
 
@@ -354,13 +242,13 @@ RSpec.describe ReviewsController, type: :controller do
         let(:review) { create(:review ) }
         let(:set_rank) { patch :ranking, params: { id: review, rank: 4 }, format: :js }
 
-        it 'response should be json' do
+        it 'response should be js' do
           set_rank
           expect( response.header['Content-Type'] ).to include 'text/javascript'
         end
 
         it 'doesn\'t save a new rank to DB' do
-          expect { set_rank }.to_not change(review.ranks, :count)
+          expect { set_rank }.to_not change(Rank, :count)
         end
 
         it 'response status should be 401' do
