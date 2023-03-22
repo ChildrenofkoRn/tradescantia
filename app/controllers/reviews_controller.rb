@@ -1,7 +1,10 @@
 class ReviewsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show index]
-  before_action :load_review, only: %i[show edit update destroy]
+
+  include Ranked
+
+  before_action :load_review, only: %i[show edit update destroy ranking]
   before_action :allow_only_author, only: %i[edit update destroy]
 
   def new
@@ -43,7 +46,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:title, :body)
+    params.require(:review).permit(:title, :body, Ranked::STRONG_PARAMS)
   end
 
   def load_review

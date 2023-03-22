@@ -4,6 +4,7 @@ RSpec.describe Review, type: :model do
 
   describe 'associations' do
     it { should belong_to(:author) }
+    it { should have_many(:ranks).dependent(:destroy) }
   end
 
   describe 'validations' do
@@ -11,5 +12,5 @@ RSpec.describe Review, type: :model do
     it { should validate_presence_of(:body) }
   end
 
-  it_behaves_like 'be Modulable', %w[Authorable]
+  it_behaves_like 'be Modulable', %w[Authorable Rankable]
 end

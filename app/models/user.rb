@@ -10,6 +10,8 @@ class User < ApplicationRecord
   attr_writer :login
 
   has_many :reviews, foreign_key: 'author_id', dependent: :destroy
+  has_many :ranks, foreign_key: 'author_id', dependent: :destroy
+
   has_many :authorizations, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { case_sensitive: false },
@@ -33,6 +35,10 @@ class User < ApplicationRecord
 
   def author_of?(resource)
     id == resource.author_id
+  end
+
+  def ranked?(resource)
+    ranks.where(rankable: resource).present?
   end
 
   def self.find_for_oauth(auth)

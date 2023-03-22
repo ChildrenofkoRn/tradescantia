@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   describe 'associations' do
     it { should have_many(:reviews).dependent(:destroy) }
     it { should have_many(:authorizations).dependent(:destroy) }
+    it { should have_many(:ranks).dependent(:destroy) }
   end
 
   describe 'validations' do
