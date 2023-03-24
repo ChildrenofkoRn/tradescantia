@@ -26,8 +26,8 @@ RSpec.describe ReviewsController, type: :controller do
         before  { get :edit, params: { id: another_authors_review } }
 
         it 'redirects to show with flash message' do
-          expect(response).to redirect_to another_authors_review
-          expect(flash[:notice]).to eql("You have no rights to do this.")
+          expect(response).to redirect_to root_path
+          expect(flash[:alert]).to eql("You are not authorized to perform this action.")
         end
       end
     end
