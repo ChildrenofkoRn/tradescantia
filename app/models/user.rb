@@ -45,4 +45,8 @@ class User < ApplicationRecord
     FindForOauthService.call(auth)
   end
 
+  def admin?
+    self.type == 'Admin'
+  end
+
 end

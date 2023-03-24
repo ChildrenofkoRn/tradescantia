@@ -13,5 +13,9 @@ FactoryBot.define do
       confirmed_at { nil }
     end
 
+    factory :admin do
+      type { 'Admin' }
+    end
+
   end
 end
