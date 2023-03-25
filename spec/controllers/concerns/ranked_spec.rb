@@ -4,6 +4,9 @@ class ArtsController < ApplicationController
   before_action :authenticate_user!
 end
 
+class ArtPolicy < ApplicationPolicy
+end
+
 RSpec.describe Ranked, type: :controller do
 
   with_model :Art do
@@ -110,23 +113,18 @@ RSpec.describe Ranked, type: :controller do
             expect { set_rank }.to_not change(art.ranks, :count)
           end
 
-          it 'response should be js' do
+          it 'response status should be 302' do
             set_rank
-            expect( response.header['Content-Type'] ).to include 'text/javascript'
+            expect( response.status ).to eq(302)
           end
 
-          it 'response status should be 422' do
-            set_rank
-            expect( response.status ).to eq(422)
+          it 'redirects to root page' do
+            expect( set_rank ).to redirect_to root_path
           end
 
-          it 'render runking template' do
-            expect(set_rank).to render_template "shared/ranked/_ranking"
-          end
-
-          it 'response contains an error message' do
+          it 'response contains flash alert from pundit' do
             set_rank
-            should set_flash.now[:alert].to("You already ranked for this review!")
+            should set_flash[:alert].to("You are not authorized to perform this action.")
           end
         end
 
@@ -144,23 +142,18 @@ RSpec.describe Ranked, type: :controller do
             expect { set_rank }.to_not change(own_art.ranks, :count)
           end
 
-          it 'response should be js' do
+          it 'response status should be 302' do
             set_rank
-            expect( response.header['Content-Type'] ).to include 'text/javascript'
+            expect( response.status ).to eq(302)
           end
 
-          it 'response status should be 422' do
-            set_rank
-            expect( response.status ).to eq(422)
+          it 'redirects to root page' do
+            expect( set_rank ).to redirect_to root_path
           end
 
-          it 'render runking template' do
-            expect(set_rank).to render_template "shared/ranked/_ranking"
-          end
-
-          it 'response contains an error message' do
+          it 'response contains flash alert from pundit' do
             set_rank
-            should set_flash.now[:alert].to("#{own_art.class} author cannot rank")
+            should set_flash[:alert].to("You are not authorized to perform this action.")
           end
         end
 

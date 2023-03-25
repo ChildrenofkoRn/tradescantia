@@ -36,6 +36,10 @@ class ApplicationPolicy
     false
   end
 
+  def ranking?
+    login? && !author? && !user.ranked?(record)
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user
@@ -49,5 +53,15 @@ class ApplicationPolicy
     private
 
     attr_reader :user, :scope
+  end
+
+  private
+
+  def author?
+    user&.author_of?(record)
+  end
+
+  def login?
+    user.present?
   end
 end

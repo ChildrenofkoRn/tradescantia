@@ -33,18 +33,4 @@ class ReviewPolicy < ApplicationPolicy
   def destroy?
     update?
   end
-
-  def ranking?
-    login? && !author? && !user.ranked?(record)
-  end
-
-  private
-
-  def author?
-    user&.author_of?(record)
-  end
-
-  def login?
-    user.present?
-  end
 end

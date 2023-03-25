@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
 
   include Ranked
 
-  before_action :load_review, only: %i[show edit update destroy ranking]
+  before_action :load_review, only: %i[show edit update destroy]
 
   def new
     @review = current_user.reviews.new
