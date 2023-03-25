@@ -27,23 +27,44 @@ feature 'User can see a list of reviews or a review', %q(
     end
   end
 
-  describe 'Authenticated user' do
+  describe 'Authenticated' do
 
-    background do
-      log_in(create(:user))
-      visit reviews_path
+    describe 'as User' do
+      background do
+        log_in(create(:user))
+        visit reviews_path
+      end
+
+      scenario 'sees a list of reviews' do
+        reviews.each { |review| expect(page).to have_content(review.title) }
+      end
+
+      scenario 'sees a review' do
+        review = reviews.first
+        click_on review.title
+
+        expect(page).to have_content(review.title)
+        expect(page).to have_content(review.body)
+      end
     end
 
-    scenario 'sees a list of reviews' do
-      reviews.each { |review| expect(page).to have_content(review.title) }
-    end
+    describe 'as Admin' do
+      background do
+        log_in(create(:admin))
+        visit reviews_path
+      end
 
-    scenario 'sees a review' do
-      review = reviews.first
-      click_on review.title
+      scenario 'sees a list of reviews' do
+        reviews.each { |review| expect(page).to have_content(review.title) }
+      end
 
-      expect(page).to have_content(review.title)
-      expect(page).to have_content(review.body)
+      scenario 'sees a review' do
+        review = reviews.first
+        click_on review.title
+
+        expect(page).to have_content(review.title)
+        expect(page).to have_content(review.body)
+      end
     end
   end
 end
