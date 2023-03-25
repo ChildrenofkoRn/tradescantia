@@ -15,7 +15,7 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present?
+    login?
   end
 
   def new?
@@ -23,7 +23,7 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def update?
-    user&.admin? || author?
+    login? && (user&.admin? || author?)
   end
 
   def edit?
@@ -35,12 +35,16 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def ranking?
-    user && !author?
+    login? && !author? && !user.ranked?(record)
   end
 
   private
 
   def author?
-    user == record.author
+    user&.author_of?(record)
+  end
+
+  def login?
+    user.present?
   end
 end

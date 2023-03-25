@@ -30,6 +30,11 @@ RSpec.describe ReviewPolicy, type: :policy do
     it { should     authorize(:edit)    }
     it { should     authorize(:update)  }
     it { should     authorize(:ranking) }
+
+    it 'is expected not to authorize twice :ranking' do
+      create(:rank, author: user, rankable: review)
+      should_not authorize(:ranking)
+    end
   end
 
   context "Author" do
@@ -57,6 +62,11 @@ RSpec.describe ReviewPolicy, type: :policy do
     it { should_not authorize(:edit)    }
     it { should_not authorize(:update)  }
     it { should     authorize(:ranking) }
+
+    it 'is expected not to authorize twice :ranking' do
+      create(:rank, author: user, rankable: review)
+      should_not authorize(:ranking)
+    end
   end
 
 end
