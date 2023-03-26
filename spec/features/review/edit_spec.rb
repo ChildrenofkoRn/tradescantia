@@ -7,14 +7,64 @@ feature 'Author can edit a review', %q{
   given(:author) { create(:user) }
   given(:review) { create(:review, author: author) }
 
-  describe 'Authenticated user' do
-    background do
-      log_in(author)
+  describe 'Authenticated' do
+
+    describe 'as User' do
+      background do
+        log_in(author)
+      end
+
+      describe 'as the author of the review' do
+
+        background do
+          visit review_path(review)
+        end
+
+        given(:review_edited) { build(:review) }
+
+        scenario 'edits' do
+          click_on 'Edit'
+          fill_in 'Title', with: review_edited.title
+          fill_in 'Body', with: review_edited.body
+          click_on 'Save'
+
+          expect(page).to_not have_content review.title
+          expect(page).to_not have_content review.body
+
+          expect(page).to have_content review_edited.title
+          expect(page).to have_content review_edited.body
+          expect(page).to have_content author.username
+        end
+
+        scenario 'tries to edit with errors' do
+          click_on 'Edit'
+          fill_in 'Title', with: ''
+          fill_in 'Body', with: ''
+          click_on 'Save'
+
+          expect(page).to have_content "Title can't be blank"
+          expect(page).to have_content "Body can't be blank"
+        end
+
+      end
+
+      describe 'as non-author of the review' do
+
+        given(:another_users_review) { create(:review) }
+
+        scenario 'is trying to edit ' do
+          visit review_path(another_users_review)
+
+          expect(page).to_not have_link 'Edit'
+        end
+      end
     end
 
-    describe 'as the author of the review' do
+    describe 'as Admin' do
+      given(:admin) { create(:admin) }
 
       background do
+        log_in(admin)
         visit review_path(review)
       end
 
@@ -42,18 +92,6 @@ feature 'Author can edit a review', %q{
 
         expect(page).to have_content "Title can't be blank"
         expect(page).to have_content "Body can't be blank"
-      end
-
-    end
-
-    describe 'as non-author of the review' do
-
-      given(:another_users_review) { create(:review) }
-
-      scenario 'is trying to edit ' do
-        visit review_path(another_users_review)
-
-        expect(page).to_not have_link 'Edit'
       end
     end
 

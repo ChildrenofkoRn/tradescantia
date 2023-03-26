@@ -1,11 +1,11 @@
 class ReviewsController < ApplicationController
 
-  before_action :authenticate_user!, except: %i[show index]
-
   include Ranked
 
-  before_action :load_review, only: %i[show edit update destroy ranking]
-  before_action :allow_only_author, only: %i[edit update destroy]
+  before_action :authenticate_user!, except: %i[show index]
+  before_action :load_review, only: %i[show edit update destroy]
+  before_action :authorize_review!, except: %i[ranking]
+  after_action :verify_authorized
 
   def new
     @review = current_user.reviews.new
@@ -53,10 +53,8 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
   end
 
-  def allow_only_author
-    unless current_user.author_of?(@review)
-      redirect_to @review, notice: 'You have no rights to do this.'
-    end
+  def authorize_review!
+    authorize(@review || Review)
   end
   
 end

@@ -1,7 +1,7 @@
 module Ranked
   extend ActiveSupport::Concern
 
-  STRONG_PARAMS = %i[ :score ].freeze
+  STRONG_PARAMS = %i[ score ].freeze
 
   included do
     before_action :set_rankable, only: :ranking
@@ -9,22 +9,15 @@ module Ranked
 
 
   def ranking
-    if current_user.author_of?(@rankable)
-      render_ranking_alert("#{@rankable.class} author cannot rank")
+    authorize @rankable
+    rank = Rank.new(author: current_user, rankable: @rankable)
+    rank.score = params[:rank].to_i
+
+    if rank.save
+      render :js, partial: "shared/ranked/ranking"
     else
-      rank = Rank.find_or_initialize_by(author: current_user, rankable: @rankable)
-
-      if rank.persisted?
-        return render_ranking_alert("You already ranked for this review!")
-      end
-
-      rank.score = params[:rank].to_i
-
-      if rank.save
-        render :js, partial: "shared/ranked/ranking"
-      else
-        render_ranking_alert(rank.errors)
-      end
+      flash.now.alert = rank.errors
+      render :js, partial: "shared/ranked/ranking", status: 422
     end
   end
 
@@ -36,11 +29,6 @@ module Ranked
 
   def set_rankable
     @rankable = model_klass.find(params[:id])
-  end
-
-  def render_ranking_alert(errors)
-    flash.now.alert = errors
-    render :js, partial: "shared/ranked/ranking", status: 422
   end
 
 end

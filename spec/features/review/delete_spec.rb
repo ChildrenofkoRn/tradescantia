@@ -7,18 +7,54 @@ feature 'Author can delete a review', %q{
   given(:author) { create(:user) }
   given(:review) { create(:review, author: author) }
 
-  describe 'Authenticated user' do
-    background do
-      log_in(author)
-    end
+  describe 'Authenticated' do
 
-    describe 'as the author of the review' do
-
+    describe 'as User' do
       background do
-        visit review_path(review)
+        log_in(author)
       end
 
-      scenario 'delete' do
+      describe 'as the author of the review' do
+
+        background do
+          visit review_path(review)
+        end
+
+        scenario 'delete' do
+          click_on 'Delete'
+
+          expect(page).to have_content "The review \"#{review.title}\" was successfully deleted."
+
+          within('.reviews') do
+            expect(page).to_not have_content review.title
+            expect(page).to_not have_content review.body
+          end
+        end
+
+      end
+
+      describe 'as non-author of the review' do
+
+        given(:another_users_review) { create(:review) }
+
+        scenario 'is trying to delete' do
+          visit review_path(another_users_review)
+
+          expect(page).to_not have_link 'Delete'
+        end
+      end
+    end
+
+    describe 'as Admin' do
+      given(:admin) { create(:admin) }
+
+      background do
+        log_in(admin)
+      end
+
+      scenario 'deleting a user review' do
+        visit review_path(review)
+
         click_on 'Delete'
 
         expect(page).to have_content "The review \"#{review.title}\" was successfully deleted."
@@ -27,18 +63,6 @@ feature 'Author can delete a review', %q{
           expect(page).to_not have_content review.title
           expect(page).to_not have_content review.body
         end
-      end
-
-    end
-
-    describe 'as non-author of the review' do
-
-      given(:another_users_review) { create(:review) }
-
-      scenario 'is trying to delete ' do
-        visit review_path(another_users_review)
-
-        expect(page).to_not have_link 'Delete'
       end
     end
 

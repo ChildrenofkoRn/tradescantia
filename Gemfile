@@ -36,6 +36,7 @@ gem 'devise', '=4.8.1'
 gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
 gem 'omniauth-github'
+gem 'pundit'
 
 # UI
 gem 'slim-rails'
@@ -66,6 +67,7 @@ group :test do
   gem 'webdrivers'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
+  # gem 'pundit-matchers', '~> 1.8.4'
   gem 'capybara-email'
   # gem 'launchy'
   gem 'with_model'
