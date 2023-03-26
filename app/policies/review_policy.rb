@@ -23,7 +23,7 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def update?
-    login? && (user&.admin? || author?)
+    login? && (user.admin? || author?)
   end
 
   def edit?

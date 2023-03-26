@@ -4,7 +4,7 @@ class ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
-    @user = user
+    @user = user || VisitorUser.new
     @record = record
   end
 
@@ -37,7 +37,7 @@ class ApplicationPolicy
   end
 
   def ranking?
-    login? && !author? && !user.ranked?(record)
+    login? && non_author? && !user.ranked?(record)
   end
 
   class Scope
@@ -58,10 +58,14 @@ class ApplicationPolicy
   private
 
   def author?
-    user&.author_of?(record)
+    user.author_of?(record)
+  end
+
+  def non_author?
+    !author?
   end
 
   def login?
-    user.present?
+    !user.is_a?(VisitorUser)
   end
 end

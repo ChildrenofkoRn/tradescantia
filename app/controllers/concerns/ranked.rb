@@ -1,7 +1,7 @@
 module Ranked
   extend ActiveSupport::Concern
 
-  STRONG_PARAMS = %i[ :score ].freeze
+  STRONG_PARAMS = %i[ score ].freeze
 
   included do
     before_action :set_rankable, only: :ranking

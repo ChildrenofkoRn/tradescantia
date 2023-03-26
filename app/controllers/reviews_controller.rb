@@ -1,19 +1,18 @@
 class ReviewsController < ApplicationController
 
-  before_action :authenticate_user!, except: %i[show index]
-
   include Ranked
 
+  before_action :authenticate_user!, except: %i[show index]
   before_action :load_review, only: %i[show edit update destroy]
+  before_action :authorize_review!, except: %i[ranking]
+  after_action :verify_authorized
 
   def new
     @review = current_user.reviews.new
-    authorize @review
   end
 
   def create
     @review = current_user.reviews.new(review_params)
-    authorize @review
     if @review.save
       redirect_to review_path(@review)
     else
@@ -52,7 +51,10 @@ class ReviewsController < ApplicationController
 
   def load_review
     @review = Review.find(params[:id])
-    authorize @review
+  end
+
+  def authorize_review!
+    authorize(@review || Review)
   end
   
 end
