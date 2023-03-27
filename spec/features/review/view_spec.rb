@@ -9,22 +9,50 @@ feature 'User can see a list of reviews or a review', %q(
 
   describe 'Unauthenticated user' do
 
-    background do
-      visit reviews_path
+    describe 'sees' do
+      background do
+        visit reviews_path
+      end
+
+      scenario 'a list of reviews' do
+        reviews.each { |review| expect(page).to have_content(review.title) }
+      end
+
+      scenario 'a review' do
+        review = reviews.first
+        click_on review.title
+
+        expect(page).to have_content(review.title)
+        expect(page).to have_content(review.body)
+        expect(page).to have_content(review.author.username)
+      end
     end
 
-    scenario 'sees a list of reviews' do
-      reviews.each { |review| expect(page).to have_content(review.title) }
+    describe 'pagination' do
+      given!(:reviews) { create_list(:review, 25) }
+
+      background do
+        visit reviews_path
+      end
+
+      scenario 'sees two paginations' do
+        expect(page.all("nav.page.pagination").count).to eql(2)
+      end
+
+      scenario '15 reviews per page' do
+        expect(page.all('a.list-group-item.review').count).to eql(15)
+      end
+
+      scenario 'goes to the second page'  do
+        within(all("nav.page.pagination").first) do
+          click_link('2', href: '/?page=2')
+        end
+
+        expect(page.all("nav.page.pagination").count).to eql(2)
+        expect(page.all('a.list-group-item.review').count).to eql(10)
+      end
     end
 
-    scenario 'sees a review' do
-      review = reviews.first
-      click_on review.title
-
-      expect(page).to have_content(review.title)
-      expect(page).to have_content(review.body)
-      expect(page).to have_content(review.author.username)
-    end
   end
 
   describe 'Authenticated' do
@@ -32,38 +60,99 @@ feature 'User can see a list of reviews or a review', %q(
     describe 'as User' do
       background do
         log_in(create(:user))
-        visit reviews_path
       end
 
-      scenario 'sees a list of reviews' do
-        reviews.each { |review| expect(page).to have_content(review.title) }
+      describe 'sees' do
+        background do
+          visit reviews_path
+        end
+
+        scenario 'a list of reviews' do
+          reviews.each { |review| expect(page).to have_content(review.title) }
+        end
+
+        scenario 'a review' do
+          review = reviews.first
+          click_on review.title
+
+          expect(page).to have_content(review.title)
+          expect(page).to have_content(review.body)
+        end
       end
 
-      scenario 'sees a review' do
-        review = reviews.first
-        click_on review.title
+      describe 'pagination' do
+        given!(:reviews) { create_list(:review, 25) }
 
-        expect(page).to have_content(review.title)
-        expect(page).to have_content(review.body)
+        background do
+          visit reviews_path
+        end
+
+        scenario 'sees two paginations' do
+          expect(page.all("nav.page.pagination").count).to eql(2)
+        end
+
+        scenario '15 reviews per page' do
+          expect(page.all('a.list-group-item.review').count).to eql(15)
+        end
+
+        scenario 'goes to the second page'  do
+          within(all("nav.page.pagination").first) do
+            click_link('2', href: '/?page=2')
+          end
+
+          expect(page.all("nav.page.pagination").count).to eql(2)
+          expect(page.all('a.list-group-item.review').count).to eql(10)
+        end
       end
     end
 
     describe 'as Admin' do
       background do
         log_in(create(:admin))
-        visit reviews_path
       end
 
-      scenario 'sees a list of reviews' do
-        reviews.each { |review| expect(page).to have_content(review.title) }
+
+      describe 'sees' do
+        background do
+          visit reviews_path
+        end
+
+        scenario 'a list of reviews' do
+          reviews.each { |review| expect(page).to have_content(review.title) }
+        end
+
+        scenario 'a review' do
+          review = reviews.first
+          click_on review.title
+
+          expect(page).to have_content(review.title)
+          expect(page).to have_content(review.body)
+        end
       end
 
-      scenario 'sees a review' do
-        review = reviews.first
-        click_on review.title
+      describe 'pagination' do
+        given!(:reviews) { create_list(:review, 25) }
 
-        expect(page).to have_content(review.title)
-        expect(page).to have_content(review.body)
+        background do
+          visit reviews_path
+        end
+
+        scenario 'sees two paginations' do
+          expect(page.all("nav.page.pagination").count).to eql(2)
+        end
+
+        scenario '15 reviews per page' do
+          expect(page.all('a.list-group-item.review').count).to eql(15)
+        end
+
+        scenario 'goes to the second page'  do
+          within(all("nav.page.pagination").first) do
+            click_link('2', href: '/?page=2')
+          end
+
+          expect(page.all("nav.page.pagination").count).to eql(2)
+          expect(page.all('a.list-group-item.review').count).to eql(10)
+        end
       end
     end
   end
