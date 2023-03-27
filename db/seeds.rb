@@ -15,7 +15,7 @@ end
 
 70.times do
   title = Faker::Book.title
-  body  = Faker::Books::Dune.quote
+  body  = Faker::Lorem.paragraph(sentence_count: 40, supplemental: true)
   FactoryBot.create(:review, author: users.sample, title: title, body: body)
 rescue ActiveRecord::RecordInvalid
   redo
