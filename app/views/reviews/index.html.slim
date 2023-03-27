@@ -1,10 +1,14 @@
 h1= 'Availiable reviews:'
 
+= paginate @reviews
+
 ul.reviews.m-4
   - @reviews.each do |review|
-    li= link_to review, class: 'list-group-item'
+    li= link_to review, class: 'list-group-item review'
       span
         => review.title
         => render "shared/ranks_stars", rank: review.rank, count: review.ranks_count
+
+= paginate @reviews
 
 p= link_to 'Add review', new_review_path

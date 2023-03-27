@@ -16,3 +16,12 @@
 @media only screen and (min-width: 576px) {
   .devise { max-width: 450px !important; }
 }
+
+// pagination
+a.page-link {
+  background-color: #ebeaf7 ;
+}
+
+nav.page.pagination {
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
