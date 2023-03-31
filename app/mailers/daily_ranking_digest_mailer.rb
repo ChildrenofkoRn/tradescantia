@@ -1,8 +1,8 @@
 class DailyRankingDigestMailer < ApplicationMailer
 
-  def ranking_digest(user)
+  def ranking_digest(user, reviews_ids)
     @user = user
-    @reviews = Review.by_date.where(created_at: Date.yesterday.all_day)
+    @reviews = Review.where(id: reviews_ids)
 
     mail to: user.email
   end
