@@ -1,0 +1,8 @@
+h3 Hi, #{@user.username}
+
+h4
+  - if @reviews.any?
+    'This is a digest of review created in the last day:
+    -  @reviews.each do |review|
+      li
+        ul= link_to review.title, review_url(review)
