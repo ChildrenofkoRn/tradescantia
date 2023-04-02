@@ -41,7 +41,6 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.by_date.with_stats.includes(:author).page(params[:page])
-
   end
 
   private
