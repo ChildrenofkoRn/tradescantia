@@ -5,11 +5,8 @@ module Rankable
     has_many :ranks, as: :rankable, dependent: :destroy
 
     def rank
-      if respond_to?(:rank_avg)
-        rank_avg || 0
-      else
-        ranks.average(:score).to_f || 0
-      end
+      rank = respond_to?(:rank_avg) ? rank_avg : ranks.average(:score).to_f
+      rank || 0
     end
 
     def ranks_count

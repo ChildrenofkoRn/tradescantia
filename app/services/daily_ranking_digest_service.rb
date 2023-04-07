@@ -1,4 +1,6 @@
 class DailyRankingDigestService
+
+  # REFACTOR make as a class method
   def send_digest
     reviews_ids = top_reviews_last_day_by_rank.map(&:id)
     return if reviews_ids.empty?

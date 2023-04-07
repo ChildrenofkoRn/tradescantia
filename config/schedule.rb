@@ -19,7 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-
+# REFACTOR invoke directly DailyRankingDigestService
+# left as an example tests
 every 1.day, at: '4:30 am' do
   runner "DailyRankingDigestJob.perform"
 end
