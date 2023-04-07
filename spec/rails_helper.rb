@@ -41,12 +41,17 @@ RSpec.configure do |config|
 
   # Fix WARN Selenium [DEPRECATION] [:capabilities] The :capabilities parameter
   Capybara.register_driver :chrome_headless do |app|
-    Capybara::Selenium::Driver.new app,
-    browser: :chrome,
-    clear_session_storage: true,
-    clear_local_storage: true,
-    options: Selenium::WebDriver::Chrome::Options.new(
-    args: %w[headless disable-gpu no-sandbox window-size=1024,768],
+
+    options = Selenium::WebDriver::Chrome::Options.new(
+                args: %w[headless disable-gpu no-sandbox window-size=1440,900]
+              )
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      clear_session_storage: true,
+      clear_local_storage: true,
+      options: options
     )
   end
 
