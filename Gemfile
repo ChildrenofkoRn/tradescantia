@@ -83,6 +83,8 @@ group :test do
   gem 'capybara-email'
   # gem 'launchy'
   gem 'with_model'
+  # Strategies for cleaning databases
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

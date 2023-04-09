@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   root 'reviews#index'
 
+  get 'search/index'
+
   concern :rankable do
     member do
       patch :ranking
