@@ -42,6 +42,10 @@ gem 'pundit'
 gem 'slim-rails'
 gem 'kaminari', '~> 1.2'
 
+# Search
+gem 'mysql2',          '~> 0.4',    :platform => :ruby
+gem 'thinking-sphinx', '~> 5.5'
+
 # Jobs
 gem 'sidekiq', '~> 7'
 gem 'sinatra', require: false
