@@ -1,13 +1,14 @@
 
 - if @results.empty?
-  h5 "Try another search phrase, minimum 3 characters."
+  h3 Oops! Try another search phrase, minimum 3 characters.
+
 - else
-  h5 "Results found #{@results.count}"
+  h3 Found #{pluralize(@results.total_entries, 'record')} for the phrase "#{@results.query}":
 
   = paginate @results
 
   p
-    ul.mb-3
+    ul.m-4
       - @results.each do |result|
         li= render result.class.to_s.downcase, resource: result
 

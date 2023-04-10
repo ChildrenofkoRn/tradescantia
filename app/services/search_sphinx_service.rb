@@ -6,15 +6,17 @@ class SearchSphinxService
     "users"   => User,
   }.freeze
 
-  def self.call(search_query:, search_type: nil, page: nil)
+  def self.call(query:, type: nil, page: nil)
 
-    return [] if search_query.blank?
+    return [] if query.blank?
 
-    query_safe = ThinkingSphinx::Query.escape(search_query)
+    query_safe = ThinkingSphinx::Query.escape(query)
 
-    type = ALLOW_TYPES.include?(search_type) ? ALLOW_TYPES[search_type] : ThinkingSphinx
+    klass = ALLOW_TYPES.include?(type) ? ALLOW_TYPES[type] : ThinkingSphinx
 
-    type.search(query_safe, page: page, per_page: 10)
+    results = klass.search(query_safe, page: page, per_page: 10)
+    results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
+    results
   end
 
 end

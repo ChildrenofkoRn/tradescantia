@@ -18,6 +18,7 @@
 }
 
 // pagination
+
 a.page-link {
   background-color: #ebeaf7 ;
 }
@@ -26,6 +27,15 @@ nav.page.pagination {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
 }
 
+// search
+
+.search {
+  margin-right: 3rem;
+}
+
+.search-select {
+  width: auto;
+}
 
 .match {
   background-color: $indigo-100;

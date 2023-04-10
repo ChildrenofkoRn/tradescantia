@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe SearchController, type: :controller do
   describe 'GET #index' do
-    let(:params_hash) { { search_query: 'Godsmack', search_type: 'Love-Hate-Sex-Pain' } }
+    let(:params_search) { { query: 'Godsmack', type: 'Love-Hate-Sex-Pain' } }
+    let(:params) { { search: params_search } }
 
     before do
-      expect(SearchSphinxService).to receive(:call).with(**params_hash)
+      expect(SearchSphinxService).to receive(:call).with(**params_search)
 
-      get :index, params: params_hash
+      get :index, params: params
     end
 
     it 'returns 200 OK' do
