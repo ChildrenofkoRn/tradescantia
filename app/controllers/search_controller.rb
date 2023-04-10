@@ -7,6 +7,6 @@ class SearchController < ApplicationController
   private
 
   def search_params
-    params.permit(:search_query, :search_type).to_h.symbolize_keys
+    params.permit(:search_query, :search_type, :page).to_h.symbolize_keys
   end
 end

@@ -6,7 +6,7 @@ class SearchSphinxService
     "users"   => User,
   }.freeze
 
-  def self.call(search_query:, search_type: nil)
+  def self.call(search_query:, search_type: nil, page: nil)
 
     return [] if search_query.blank?
 
@@ -14,7 +14,7 @@ class SearchSphinxService
 
     type = ALLOW_TYPES.include?(search_type) ? ALLOW_TYPES[search_type] : ThinkingSphinx
 
-    type.search(query_safe)
+    type.search(query_safe, page: page, per_page: 10)
   end
 
 end

@@ -4,8 +4,11 @@
 - else
   h5 "Results found #{@results.count}"
 
+  = paginate @results
+
   p
     ul.mb-3
       - @results.each do |result|
         li= render result.class.to_s.downcase, resource: result
 
+  = paginate @results
