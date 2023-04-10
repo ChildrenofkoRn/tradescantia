@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
 
   def index
-    @result = SearchService.call(**search_params)
+    @results = SearchSphinxService.call(**search_params)
   end
 
   private

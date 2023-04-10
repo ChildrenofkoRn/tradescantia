@@ -57,7 +57,7 @@ RSpec.configure do |config|
 
   # Selenium::WebDriver.logger.ignore(:browser_options)
   Capybara.javascript_driver = :chrome_headless
-  # Capybara.default_max_wait_time = 20
+  Capybara.default_max_wait_time = 6
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

@@ -5,7 +5,7 @@ RSpec.describe SearchController, type: :controller do
     let(:params_hash) { { search_query: 'Godsmack', search_type: 'Love-Hate-Sex-Pain' } }
 
     before do
-      expect(SearchService).to receive(:call).with(**params_hash)
+      expect(SearchSphinxService).to receive(:call).with(**params_hash)
 
       get :index, params: params_hash
     end
