@@ -2,6 +2,7 @@ class SearchController < ApplicationController
 
   def index
     @results = SearchSphinxService.call(**search_params)
+    @results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
   end
 
   private

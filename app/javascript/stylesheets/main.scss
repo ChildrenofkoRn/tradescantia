@@ -25,3 +25,10 @@ a.page-link {
 nav.page.pagination {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
 }
+
+
+.match {
+  background-color: $indigo-100;
+  color: #03775c;
+  font-size: 1.1em;
+}
