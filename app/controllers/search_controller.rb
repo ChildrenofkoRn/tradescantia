@@ -1,6 +1,9 @@
 class SearchController < ApplicationController
 
+  after_action :verify_authorized
+
   def index
+    authorize(:search)
     @results = SearchSphinxService.call(**search_params)
   end
 

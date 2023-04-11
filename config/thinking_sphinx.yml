@@ -1,4 +1,5 @@
 test:
+  indices_location: <%= Rails.root.join("tmp/sphinx_indices_test")  %>
   min_infix_len: 3
 development:
   min_infix_len: 3

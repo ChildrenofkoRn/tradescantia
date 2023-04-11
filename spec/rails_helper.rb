@@ -92,6 +92,7 @@ RSpec.configure do |config|
   #
   config.after(:all) do
     FileUtils.rm_rf("#{Rails.root}/tmp/storage")
+    FileUtils.rm_rf("#{Rails.root}/tmp/sphinx_indices_test")
   end
 end
 

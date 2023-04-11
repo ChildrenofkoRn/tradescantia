@@ -7,7 +7,7 @@
 
   = paginate @results
 
-  p
+  .results
     ul.m-4
       - @results.each do |result|
         li= render result.class.to_s.downcase, resource: result
