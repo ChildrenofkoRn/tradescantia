@@ -2,7 +2,11 @@ class ReviewPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
-    #   scope.all
+    #   if user.admin?
+    #     scope.all
+    #   else
+    #     scope.where(published: true)
+    #   end
     # end
   end
 

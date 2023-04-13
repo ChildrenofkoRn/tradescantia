@@ -1,0 +1,5 @@
+.search
+  = form_with scope: :search, url: search_index_path, local: true, method: :get, class: "d-flex", html: {'role': "search"} do |f|
+    = f.text_field :query, class: "form-control", placeholder: "type to search"
+    = f.select     :type, SearchSphinxService::ALLOW_TYPES.keys, {selected: 'site'}, {class: "form-select search-select"}
+    = f.submit     'go', class: "btn btn-outline-primary"

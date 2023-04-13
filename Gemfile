@@ -42,6 +42,10 @@ gem 'pundit'
 gem 'slim-rails'
 gem 'kaminari', '~> 1.2'
 
+# Search
+gem 'mysql2',          '~> 0.4',    :platform => :ruby
+gem 'thinking-sphinx', '~> 5.5'
+
 # Jobs
 gem 'sidekiq', '~> 7'
 gem 'sinatra', require: false
@@ -79,6 +83,8 @@ group :test do
   gem 'capybara-email'
   # gem 'launchy'
   gem 'with_model'
+  # Strategies for cleaning databases
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
