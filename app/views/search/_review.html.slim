@@ -1,4 +1,4 @@
 p
   = sanitize resource.excerpts.body
   br
-  = link_to "=> in review: #{sanitize resource.excerpts.title}", review_path(resource)
+  = link_to "=> in review: #{resource.title}", review_path(resource)

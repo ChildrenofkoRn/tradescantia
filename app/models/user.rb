@@ -20,6 +20,10 @@ class User < ApplicationRecord
             format: { with: /\A[-_a-zA-Z0-9]+\z/, message: "allows letters, numbers and: - _" },
             length: { minimum: 1, maximum: 40 }
 
+  ThinkingSphinx::Callbacks.append(
+    self, :behaviours => [:real_time]
+  )
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if (login = conditions.delete(:login))
