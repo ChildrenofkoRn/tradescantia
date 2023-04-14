@@ -13,4 +13,7 @@ ul.reviews.m-4
 
 = paginate @reviews
 
-p= link_to 'Add review', new_review_path
+- if policy(Review).create?
+  p= button_to "Add review", new_review_path, method: :get,
+                                              class: "btn btn-outline-primary",
+                                              html: { type: "button" }
