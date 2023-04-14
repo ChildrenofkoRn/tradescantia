@@ -69,12 +69,8 @@ feature 'User can create review', %q{
 
     scenario 'add a review' do
       visit reviews_path
-      click_on 'Add review'
 
-      expect(page).to have_content 'You need to sign in or sign up before continuing.'
-
-      expect(page).to_not have_field("Title")
-      expect(page).to_not have_button("Create")
+      expect(page).to_not have_button('Add review')
     end
   end
 
