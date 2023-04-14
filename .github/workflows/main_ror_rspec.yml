@@ -77,9 +77,12 @@ jobs:
       - name: Install Chrome
         run: |
           wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y gdebi-core
+          sudo apt install -yqq gdebi-core
           sudo gdebi --non-interactive google-chrome*.deb
           google-chrome --version
+
+      - name: Install Sphinx
+        run: sudo apt install -y mysql-client libmysqlclient-dev sphinxsearch
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
