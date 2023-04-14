@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby '~> 3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.2'
@@ -36,15 +36,28 @@ gem 'devise', '=4.8.1'
 gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
 gem 'omniauth-github'
+gem 'pundit'
 
 # UI
 gem 'slim-rails'
+gem 'kaminari', '~> 1.2'
+
+# Search
+gem 'mysql2',          '~> 0.4',    :platform => :ruby
+gem 'thinking-sphinx', '~> 5.5'
+
+# Jobs
+gem 'sidekiq', '~> 7'
+gem 'sinatra', require: false
+gem 'whenever', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 6.0.0'
   gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'brakeman'
 end
 
 group :development do
@@ -66,9 +79,12 @@ group :test do
   gem 'webdrivers'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
+  # gem 'pundit-matchers', '~> 1.8.4'
   gem 'capybara-email'
   # gem 'launchy'
   gem 'with_model'
+  # Strategies for cleaning databases
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

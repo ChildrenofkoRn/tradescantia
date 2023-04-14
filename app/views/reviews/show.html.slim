@@ -4,9 +4,12 @@ p
   = 'Author: '
   = @review.author.username
 
+p.rank
+  = render "shared/rank", resource: @review
+
 p= @review.body
 
-- if current_user&.author_of?(@review)
+- if policy(@review).update?
   ul.review_actions.m-4
     li= link_to 'Edit', edit_review_path(@review)
     li= link_to 'Delete', review_path(@review), data: {:confirm => 'Are you sure?'}, :method => :delete

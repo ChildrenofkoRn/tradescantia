@@ -6,31 +6,62 @@ feature 'User can create review', %q{
   with my title & text
 } do
 
-  describe 'Authenticated user' do
-    given(:user) { create(:user) }
+  describe 'Authenticated' do
 
-    background do
-      log_in(user)
+    describe 'as User' do
+      given(:user) { create(:user) }
 
-      visit reviews_path
-      click_on 'Add review'
+      background do
+        log_in(user)
+
+        visit reviews_path
+        click_on 'Add review'
+      end
+
+      scenario 'add a review' do
+        fill_in 'Title', with: 'Review title'
+        fill_in 'Body', with: 'Review text'
+        click_on 'Create'
+
+        expect(page).to have_content 'Review title'
+        expect(page).to have_content 'Review text'
+        expect(page).to have_content user.username
+      end
+
+      scenario 'add a review with errors' do
+        click_on 'Create'
+
+        expect(page).to have_content "Title can't be blank"
+        expect(page).to have_content "Body can't be blank"
+      end
     end
 
-    scenario 'add a review' do
-      fill_in 'Title', with: 'Review title'
-      fill_in 'Body', with: 'Review text'
-      click_on 'Create'
+    describe 'as Admin' do
+      given(:user) { create(:admin) }
 
-      expect(page).to have_content 'Review title'
-      expect(page).to have_content 'Review text'
-      expect(page).to have_content user.username
-    end
+      background do
+        log_in(user)
 
-    scenario 'add a review with errors' do
-      click_on 'Create'
+        visit reviews_path
+        click_on 'Add review'
+      end
 
-      expect(page).to have_content "Title can't be blank"
-      expect(page).to have_content "Body can't be blank"
+      scenario 'add a review' do
+        fill_in 'Title', with: 'Review title'
+        fill_in 'Body', with: 'Review text'
+        click_on 'Create'
+
+        expect(page).to have_content 'Review title'
+        expect(page).to have_content 'Review text'
+        expect(page).to have_content user.username
+      end
+
+      scenario 'add a review with errors' do
+        click_on 'Create'
+
+        expect(page).to have_content "Title can't be blank"
+        expect(page).to have_content "Body can't be blank"
+      end
     end
   end
 
@@ -38,12 +69,8 @@ feature 'User can create review', %q{
 
     scenario 'add a review' do
       visit reviews_path
-      click_on 'Add review'
 
-      expect(page).to have_content 'You need to sign in or sign up before continuing.'
-
-      expect(page).to_not have_field("Title")
-      expect(page).to_not have_button("Create")
+      expect(page).to_not have_button('Add review')
     end
   end
 

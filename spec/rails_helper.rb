@@ -5,6 +5,7 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -38,9 +39,26 @@ RSpec.configure do |config|
   config.include OmniauthHelpers, type: :feature
   OmniAuth.config.test_mode = true
 
-  Capybara.javascript_driver = :selenium_chrome_headless
-  # Capybara.default_max_wait_time = 20
-  Selenium::WebDriver.logger.ignore(:browser_options)
+
+  # Fix WARN Selenium [DEPRECATION] [:capabilities] The :capabilities parameter
+  Capybara.register_driver :chrome_headless do |app|
+
+    options = Selenium::WebDriver::Chrome::Options.new(
+                args: %w[headless disable-gpu no-sandbox window-size=1440,900]
+              )
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      clear_session_storage: true,
+      clear_local_storage: true,
+      options: options
+    )
+  end
+
+  # Selenium::WebDriver.logger.ignore(:browser_options)
+  Capybara.javascript_driver = :chrome_headless
+  Capybara.default_max_wait_time = 6
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -48,7 +66,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  # config.use_transactional_fixtures = true
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -73,9 +91,23 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   #
+
+  config.use_transactional_fixtures = true
+
+  config.before(:suite) do
+    ThinkingSphinx::Test.init
+    ThinkingSphinx::Test.start(index: false)
+  end
+
+  config.after(:suite) do
+    ThinkingSphinx::Test.stop
+    FileUtils.rm_rf("#{Rails.root}/db/sphinx/test")
+  end
+
   config.after(:all) do
     FileUtils.rm_rf("#{Rails.root}/tmp/storage")
   end
+
 end
 
 Shoulda::Matchers.configure do |config|
@@ -84,3 +116,13 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# Sphinx startup debug
+# class Riddle::ExecuteCommand
+#
+#   def self.call(command, verbose = true)
+#     p command
+#     new(command, verbose).call
+#   end
+#
+# end
