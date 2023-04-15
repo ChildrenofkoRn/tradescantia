@@ -107,5 +107,8 @@ jobs:
           DATABASE_URL: postgresql://${{env.PG_USER}}:${{env.PG_PSWD}}@${{env.PG_HOST}}:${{env.PG_PORT}}/${{env.PG_DB}}
         run: bundle exec rspec
 
+      - name: Security audit dependencies
+        run: bundle exec bundler-audit --update
+
       - name: Security audit application code
         run: bundle exec brakeman -q -w2 --color
