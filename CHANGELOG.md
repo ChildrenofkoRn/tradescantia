@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 (April 15, 2023)
+
+* Gems updated fixing vulnerabilities
+
 ## 0.2.0 (April 14, 2023)
 
 * Second release
