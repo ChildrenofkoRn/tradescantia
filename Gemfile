@@ -37,6 +37,7 @@ gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
 gem 'omniauth-github'
 gem 'pundit'
+gem 'doorkeeper'
 
 # UI
 gem 'slim-rails'

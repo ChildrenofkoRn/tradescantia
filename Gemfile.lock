@@ -100,6 +100,8 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    doorkeeper (5.6.6)
+      railties (>= 5)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -374,6 +376,7 @@ DEPENDENCIES
   capybara-email
   database_cleaner-active_record
   devise (= 4.8.1)
+  doorkeeper
   factory_bot_rails
   faker
   jbuilder (~> 2.7)
