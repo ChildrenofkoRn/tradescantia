@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
   before_action :load_review, only: %i[show edit update destroy]
   before_action :authorize_review!, except: %i[ranking]
   after_action :verify_authorized
+  after_action :publishing_question_in_channel, only: :create
 
   def new
     @review = current_user.reviews.new
@@ -55,6 +56,18 @@ class ReviewsController < ApplicationController
 
   def authorize_review!
     authorize(@review || Review)
+  end
+
+  def publishing_question_in_channel
+    return if @review.errors.any?
+
+    ActionCable.server.broadcast(
+      'reviews',
+      ApplicationController.render(
+        partial: 'reviews/review',
+        locals: { review: @review }
+      )
+    )
   end
   
 end
