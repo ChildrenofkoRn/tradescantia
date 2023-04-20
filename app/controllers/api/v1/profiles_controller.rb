@@ -4,18 +4,23 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   after_action :verify_authorized
 
   def me
-    render json: ProfileSerializer.new(current_resource_owner).serializable_hash.to_json
+    serialize(current_resource_owner, params: { email: true })
   end
 
   def index
-    users = User.page(params[:page]).includes(:reviews, :ranks)
-    render json: ProfileSerializer.new(users).serializable_hash.to_json
+    users = policy_scope(User, policy_scope_class: Api::ProfilePolicy::Scope)
+                              .page(params[:page]).includes(:reviews, :ranks)
+    serialize(users, params: { owner: current_resource_owner } )
   end
 
   private
 
   def authorize_profile!
     authorize(:profile)
+  end
+
+  def serialize(...)
+    render json: ProfileSerializer.new(...).serializable_hash.to_json
   end
 
 end

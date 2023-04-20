@@ -2,8 +2,15 @@ class Api::V1::BaseController < ApplicationController
 
   before_action :doorkeeper_authorize!
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  def doorkeeper_unauthorized_render_options(error: nil)
+    message = error.nil? ? "Not authorized" : error
+    { json: { data: { errors: message } } }
+  end
+
   def user_not_authorized
-    error = { error: "You are unauthorized for this action." }
+    error = { data: { errors: "You are unauthorized for this action." } }
     render json: error, status: :unauthorized
   end
 
@@ -17,8 +24,8 @@ class Api::V1::BaseController < ApplicationController
     current_resource_owner
   end
 
-  def authorize(record, query = nil)
-    super([:api, record], query)
+  def authorize(record, ...)
+    super([:api, record], ...)
   end
 
 end

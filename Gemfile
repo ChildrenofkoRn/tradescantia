@@ -42,7 +42,7 @@ gem 'pundit'
 gem 'doorkeeper'
 gem 'jsonapi-serializer'
 # gem 'active_model_serializers', '~> 0.10.13'
-# gem 'oj'
+gem 'oj'
 
 # UI
 gem 'slim-rails'
