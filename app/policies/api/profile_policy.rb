@@ -4,4 +4,8 @@ class Api::ProfilePolicy < Api::BasePolicy
     login?
   end
 
+  def index?
+    login?
+  end
+
 end
