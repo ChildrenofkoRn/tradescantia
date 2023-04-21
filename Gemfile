@@ -38,6 +38,12 @@ gem "omniauth-rails_csrf_protection"
 gem 'omniauth-github'
 gem 'pundit'
 
+# API
+gem 'doorkeeper'
+gem 'jsonapi-serializer'
+# gem 'active_model_serializers', '~> 0.10.13'
+gem 'oj'
+
 # UI
 gem 'slim-rails'
 gem 'kaminari', '~> 1.2'

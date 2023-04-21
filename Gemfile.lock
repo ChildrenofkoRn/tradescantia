@@ -100,6 +100,8 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    doorkeeper (5.6.6)
+      railties (>= 5)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -124,6 +126,8 @@ GEM
       activesupport (>= 5.0.0)
     joiner (0.6.0)
       activerecord (>= 6.1.0)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     jwt (2.7.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -180,6 +184,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
+    oj (3.14.3)
     omniauth (2.1.1)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -374,13 +379,16 @@ DEPENDENCIES
   capybara-email
   database_cleaner-active_record
   devise (= 4.8.1)
+  doorkeeper
   factory_bot_rails
   faker
   jbuilder (~> 2.7)
+  jsonapi-serializer
   kaminari (~> 1.2)
   listen (~> 3.3)
   mysql2 (~> 0.4)
   net-http
+  oj
   omniauth
   omniauth-github
   omniauth-rails_csrf_protection
