@@ -4,6 +4,11 @@ p
   = 'Author: '
   = @review.author.username
 
+- if @review.link.present?
+  p.source-link
+    = 'Source: '
+    = build_link(@review.link)
+
 p.rank
   = render "shared/rank", resource: @review
 

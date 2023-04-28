@@ -10,6 +10,8 @@ feature 'User can provide a link to the source', %q{
 
     describe 'as User' do
       given(:user) { create(:user) }
+      given(:src_link_title) { 'Groundhog Day (1993)' }
+      given(:src_link_url) { 'https://www.imdb.com/title/tt0107048/' }
 
       background do
         log_in(user)
@@ -22,14 +24,18 @@ feature 'User can provide a link to the source', %q{
         fill_in 'Title', with: 'Review title'
         fill_in 'Body', with: 'Review text'
 
-        fill_in 'Source link title', with: 'Groundhog Day (1993)'
-        fill_in 'Source link', with: 'https://www.imdb.com/title/tt0107048/'
+        within('.source-link') do
+          fill_in 'Title Link', with: src_link_title
+          fill_in 'URL', with: src_link_url
+        end
 
         click_on 'Create'
 
-        expect(page).to have_link 'Groundhog Day (1993)', href: 'https://www.imdb.com/title/tt0107048/'
+        expect(page).to have_link src_link_title, href: src_link_url
+        expect(find_link(src_link_title)[:target]).to eq('_blank')
       end
     end
+
   end
 
 end

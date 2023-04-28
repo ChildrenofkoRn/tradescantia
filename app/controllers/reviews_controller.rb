@@ -9,7 +9,8 @@ class ReviewsController < ApplicationController
   after_action :publishing_question_in_channel, only: :create
 
   def new
-    @review = current_user.reviews.new
+    @review = current_user.reviews.build
+    @review.build_link
   end
 
   def create
@@ -47,7 +48,9 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:title, :body, Ranked::STRONG_PARAMS)
+    params.require(:review).permit(:title, :body,
+                                   Ranked::STRONG_PARAMS,
+                                   link_attributes: [:title, :url])
   end
 
   def load_review

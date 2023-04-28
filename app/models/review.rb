@@ -3,7 +3,9 @@ class Review < ApplicationRecord
   include Authorable
   include Rankable
 
-  has_one :link
+  has_one :link, dependent: :destroy
+
+  accepts_nested_attributes_for :link, reject_if: :all_blank
 
   scope :by_date, -> { order(created_at: :desc) }
 
