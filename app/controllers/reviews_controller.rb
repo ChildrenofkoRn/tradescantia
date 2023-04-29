@@ -23,6 +23,7 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    @review.build_link if @review.link.blank?
   end
 
   def update
@@ -50,7 +51,7 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:title, :body,
                                    Ranked::STRONG_PARAMS,
-                                   link_attributes: [:title, :url])
+                                   link_attributes: [:title, :url, :id, :_destroy])
   end
 
   def load_review

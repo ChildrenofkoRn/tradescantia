@@ -9,7 +9,7 @@
     = form.text_area :body, class: 'form-control'
 
   .source-link
-    .h4 Add a link to the source, if necessary:
+    .h4 Source link (optional):
 
     = form.fields_for :link do |form_link|
 
@@ -20,6 +20,11 @@
       .mb-3.w-auto
         = form_link.label :url, 'URL', class: 'form-label'
         = form_link.text_field :url, class: 'form-control form-control-sm w-75', rows: "1"
+
+      - if @review.link.persisted?
+        .mb-3.w-auto.form-check
+          = form_link.check_box :_destroy, { class: 'form-check-input' }, true, false
+          = form_link.label :_destroy,  'Delete link', class: 'form-check-label'
 
   .mb-3
     - if @review.new_record?
