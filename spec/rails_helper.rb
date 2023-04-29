@@ -118,6 +118,20 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+# module FactoryBot::Syntax::Methods
+#
+#   def with_nested_attributes_for(*args)
+#     attrs = FactoryBot.attributes_for(*args)
+#
+#     klass_name = args.first.to_s.camelize.constantize
+#     klass_name.reflect_on_all_associations(:has_one).each do |refl|
+#       attrs["#{refl.name}_attributes".to_sym] = FactoryBot.attributes_for(refl.name)
+#     end
+#
+#     attrs
+#   end
+# end
+
 # Sphinx startup debug
 # class Riddle::ExecuteCommand
 #
