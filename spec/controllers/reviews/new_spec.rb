@@ -13,6 +13,10 @@ RSpec.describe ReviewsController, type: :controller do
         expect(assigns(:review)).to be_a_new(Review)
       end
 
+      it 'assigns new link' do
+        expect(assigns(:review).link).to be_a_new(Link)
+      end
+
       it 'renders new view' do
         expect(response).to render_template :new
       end

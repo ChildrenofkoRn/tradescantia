@@ -9,5 +9,9 @@ FactoryBot.define do
       title { nil }
       body { nil }
     end
+
+    trait :with_link do
+      association :link
+    end
   end
 end
