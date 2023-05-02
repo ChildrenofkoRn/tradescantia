@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_28_132328) do
+ActiveRecord::Schema.define(version: 2023_05_02_143642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,16 @@ ActiveRecord::Schema.define(version: 2023_04_28_132328) do
     t.index ["author_id"], name: "index_reviews_on_author_id"
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.integer "views", default: 0, null: false
+    t.integer "ranks_count", default: 0, null: false
+    t.float "rank_avg", default: 0.0, null: false
+    t.bigint "review_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_stats_on_review_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "username", default: "", null: false
@@ -127,4 +137,5 @@ ActiveRecord::Schema.define(version: 2023_04_28_132328) do
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "ranks", "users", column: "author_id"
   add_foreign_key "reviews", "users", column: "author_id"
+  add_foreign_key "stats", "reviews"
 end
