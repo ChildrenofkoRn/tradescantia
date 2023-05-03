@@ -5,8 +5,10 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :load_review, only: %i[show edit update destroy]
   before_action :authorize_review!, except: %i[ranking]
+
   after_action :verify_authorized
   after_action :publishing_question_in_channel, only: :create
+  after_action  ->{ @review.stat.views_up }, if: -> { response.successful? }, only: :show
 
   def new
     @review = current_user.reviews.build

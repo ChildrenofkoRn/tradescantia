@@ -13,6 +13,9 @@ feature 'User can see views stats', %q(
     end
 
     scenario 'a review' do
+      expect(page).to have_content("Views: 0")
+
+      refresh
       expect(page).to have_content("Views: 1")
     end
 
@@ -25,6 +28,9 @@ feature 'User can see views stats', %q(
     end
 
     scenario 'a review' do
+      expect(page).to have_content("Views: 0")
+
+      refresh
       expect(page).to have_content("Views: 1")
     end
   end

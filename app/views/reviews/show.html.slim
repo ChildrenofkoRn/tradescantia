@@ -12,6 +12,9 @@ p
 p.rank
   = render "shared/rank", resource: @review
 
+p.views
+  = "Views: #{@review.stat.views}"
+
 p= @review.body
 
 - if policy(@review).update?
