@@ -8,6 +8,10 @@ RSpec.describe 'concern Rankable' do
 
     model do
       include Rankable
+
+      has_one :stat, dependent: :destroy, as: :statable
+
+      after_create ->(art) { art.create_stat }
     end
   end
 

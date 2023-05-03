@@ -6,6 +6,7 @@ RSpec.describe Review, type: :model do
     it { should belong_to(:author) }
     it { should have_many(:ranks).dependent(:destroy) }
     it { should have_one(:link).dependent(:destroy) }
+    it { should have_one(:stat).dependent(:destroy) }
   end
 
   describe 'nested attrs' do
