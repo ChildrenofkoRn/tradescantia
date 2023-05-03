@@ -1,6 +1,6 @@
 li= link_to review, class: 'list-group-item review'
   span
     => review.title
-    => render "shared/ranks_stars", rank: review.rank
-    => render "shared/ranks_text", rank: review.rank, count: review.ranks_count
+    => render "shared/ranks_stars", avg: review.stat.rank_avg
+    => render "shared/ranks_text", avg: review.stat.rank_avg, count: review.stat.ranks_count
     => review.author.username
