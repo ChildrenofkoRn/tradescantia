@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'concern Rankable' do
 
-  with_model :WithRankable do
+  with_model :WithStatable do
     table do |t|
     end
 
