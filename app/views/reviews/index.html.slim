@@ -2,7 +2,11 @@ h1= 'Availiable reviews:'
 
 = paginate @reviews
 
-ul.reviews.m-4
+table.table.reviews
+  tr
+    th Title
+    th Author
+    th Rank
   - @reviews.each do |review|
     = render review
 
