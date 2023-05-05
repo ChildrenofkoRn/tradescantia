@@ -20,7 +20,7 @@ class Stat < ApplicationRecord
   def rank_del(score)
     ranks_sum = rank_avg * ranks_count
     self.ranks_count -= 1
-    self.rank_avg = (ranks_sum - score.abs) / ranks_count
+    self.rank_avg = ranks_count.zero? ? ranks_count : (ranks_sum - score.abs) / ranks_count
     save
   end
 
