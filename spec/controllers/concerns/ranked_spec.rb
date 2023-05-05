@@ -16,7 +16,11 @@ RSpec.describe Ranked, type: :controller do
 
     model do
       include Rankable
+
       belongs_to :author, class_name: "User"
+      has_one :stat, dependent: :destroy, as: :statable
+
+      after_create ->(art) { art.create_stat }
     end
   end
 

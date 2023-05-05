@@ -9,7 +9,7 @@ document.addEventListener("turbolinks:load", function(){
     console.log("Remove subscription and disconnect");
   }
 
-  const reviews = document.querySelector('ul.reviews');
+  const reviews = document.querySelector('.table.reviews > tbody');
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
@@ -28,10 +28,10 @@ document.addEventListener("turbolinks:load", function(){
 
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        if (reviews.childElementCount == 15) {
+        if (reviews.childElementCount >= 16) {
           reviews.removeChild(reviews.lastElementChild);
         }
-        reviews.insertAdjacentHTML("afterbegin", data);
+        reviews.firstElementChild.insertAdjacentHTML("afterend", data);
       }
     });
   }

@@ -2,6 +2,7 @@ class Review < ApplicationRecord
 
   include Authorable
   include Rankable
+  include Statable
 
   has_one :link, dependent: :destroy
 

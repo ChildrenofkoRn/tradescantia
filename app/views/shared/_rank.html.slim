@@ -1,13 +1,15 @@
 = 'Rank: '
-- rank  = resource&.rank
-- count = resource&.ranks_count
+
+- avg  = resource&.stat.rank_avg
+- count = resource&.stat.ranks_count
+
 - if policy(resource).ranking?
   span.ranks-stars
     - Rank::RANGE.to_a.each do |score|
       = link_to ranking_review_path(rank: score), title: "Set rank #{score}", method: :patch, remote: true
         i.bi.bi-star
-  = render "shared/ranks_text", rank: rank, count: count
+  = render "shared/ranks_text", avg: avg, count: count
 
 - else
-  = render "shared/ranks_stars", rank: rank
-  = render "shared/ranks_text", rank: rank, count: count
+  = render "shared/ranks_stars", avg: avg
+  = render "shared/ranks_text", avg: avg, count: count

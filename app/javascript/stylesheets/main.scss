@@ -24,7 +24,7 @@ a.page-link {
 }
 
 nav.page.pagination {
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-left: calc(var(--bs-gutter-x) * 0.5);
 }
 
 // search
@@ -41,4 +41,20 @@ nav.page.pagination {
   background-color: $indigo-100;
   color: #03775c;
   font-size: 1.1em;
+}
+
+// reviews
+
+.table.reviews {
+  margin-left: calc(var(--bs-gutter-x) * 0.6);
+}
+
+.table.reviews td.title a {
+  display: block;
+  width: 100%;
+}
+
+td > span.ranks-star {
+  margin-inline: 7px;
+  color: #9a87de;
 }
