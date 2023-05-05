@@ -8,8 +8,8 @@
     - Rank::RANGE.to_a.each do |score|
       = link_to ranking_review_path(rank: score), title: "Set rank #{score}", method: :patch, remote: true
         i.bi.bi-star
-  = render "shared/ranks_text", avg: avg, count: count
+  = render "ranks/ranks_text", avg: avg, count: count
 
 - else
-  = render "shared/ranks_stars", avg: avg
-  = render "shared/ranks_text", avg: avg, count: count
+  = render "ranks/ranks_stars", avg: avg
+  = render "ranks/ranks_text", avg: avg, count: count

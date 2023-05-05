@@ -70,7 +70,7 @@ RSpec.describe Ranked, type: :controller do
           end
 
           it 'render runking template' do
-            expect(set_rank).to render_template "shared/ranked/_ranking"
+            expect(set_rank).to render_template "ranks/ranked/_ranking"
           end
         end
 
@@ -98,7 +98,7 @@ RSpec.describe Ranked, type: :controller do
           end
 
           it 'render runking template' do
-            expect(set_rank).to render_template "shared/ranked/_ranking"
+            expect(set_rank).to render_template "ranks/ranked/_ranking"
           end
         end
 
