@@ -45,6 +45,10 @@ nav.page.pagination {
 
 // reviews
 
+.hide {
+  display: none;
+}
+
 .table.reviews {
   margin-left: calc(var(--bs-gutter-x) * 0.6);
 }
@@ -55,6 +59,11 @@ nav.page.pagination {
 }
 
 td > span.ranks-star {
+  margin-inline: 7px;
+  color: #9a87de;
+}
+
+th > span.arrows {
   margin-inline: 7px;
   color: #9a87de;
 }
