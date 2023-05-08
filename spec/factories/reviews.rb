@@ -13,5 +13,11 @@ FactoryBot.define do
     trait :with_link do
       association :link
     end
+
+    trait :with_rank do
+      after(:create) do |review|
+        create_list :rank, 3, rankable: review
+      end
+    end
   end
 end

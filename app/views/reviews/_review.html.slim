@@ -2,7 +2,8 @@ tr.review[data-review-id=review.id]
     td.title= link_to review.title, review, class: 'link-review'
     td= review.author.username
     td
-      = review.stat.rank_avg
+      span.ranks-avg
+        = review.stat.rank_avg.round(2)
       span.ranks-star
         i.bi.bi-star-fill
       = ranks_grade(review.stat.rank_avg)

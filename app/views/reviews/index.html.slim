@@ -3,10 +3,21 @@ h1= 'Availiable reviews:'
 = paginate @reviews
 
 table.table.reviews
-  tr
-    th Title
-    th Author
-    th Rank
+  thead.thead-light
+    tr
+      th.sort-by-title
+        | Title
+        span.arrows
+          i.bi.bi-arrow-down-up
+          i.bi.bi-arrow-up.hide
+          i.bi.bi-arrow-down.hide
+      th Author
+      th.sort-by-rank
+        | Rank
+        span.arrows
+          i.bi.bi-arrow-down-up
+          i.bi.bi-arrow-up.hide
+          i.bi.bi-arrow-down.hide
   - @reviews.each do |review|
     = render review
 

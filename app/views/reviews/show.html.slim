@@ -10,7 +10,7 @@ p
     = build_link(@review.link)
 
 p.rank
-  = render "shared/rank", resource: @review
+  = render "ranks/rank", resource: @review
 
 p.views
   = "Views: #{@review.stat.views}"
