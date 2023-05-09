@@ -57,6 +57,11 @@ gem 'sidekiq', '~> 7'
 gem 'sinatra', require: false
 gem 'whenever', require: false
 
+# Caching
+# gems/redis-client-0.14.1/lib/redis_client/config.rb:21:in `initialize': unknown keywords: :scheme, :namespace, :expires_in, :raw (ArgumentError)
+gem 'redis', '~> 4.0'
+gem 'redis-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
