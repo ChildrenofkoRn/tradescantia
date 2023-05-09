@@ -1,6 +1,6 @@
 h1= 'Availiable reviews:'
 
-= paginate @reviews
+= paginate @reviews, params: { resource: :review }
 
 table.table.reviews
   thead.thead-light
@@ -19,9 +19,10 @@ table.table.reviews
           i.bi.bi-arrow-up.hide
           i.bi.bi-arrow-down.hide
   - @reviews.each do |review|
-    = render review
+    - cache review do
+      = render review
 
-= paginate @reviews
+= paginate @reviews, params: { resource: :review }
 
 - if policy(Review).create?
   p= button_to "Add review", new_review_path, method: :get,

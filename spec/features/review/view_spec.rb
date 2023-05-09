@@ -45,7 +45,7 @@ feature 'User can see a list of reviews or a review', %q(
 
       scenario 'goes to the second page'  do
         within(all("nav.page.pagination").first) do
-          click_link('2', href: '/?page=2')
+          click_link('2', href: /\/\?page=2*/)
         end
 
         expect(page.all("nav.page.pagination").count).to eql(2)
@@ -97,7 +97,7 @@ feature 'User can see a list of reviews or a review', %q(
 
         scenario 'goes to the second page'  do
           within(all("nav.page.pagination").first) do
-            click_link('2', href: '/?page=2')
+            click_link('2', href: /\/\?page=2*/)
           end
 
           expect(page.all("nav.page.pagination").count).to eql(2)
@@ -147,7 +147,7 @@ feature 'User can see a list of reviews or a review', %q(
 
         scenario 'goes to the second page'  do
           within(all("nav.page.pagination").first) do
-            click_link('2', href: '/?page=2')
+            click_link('2', href: /\/\?page=2*/)
           end
 
           expect(page.all("nav.page.pagination").count).to eql(2)
