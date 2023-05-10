@@ -1,9 +1,11 @@
 class Stat < ApplicationRecord
 
-  belongs_to :statable, polymorphic: true, touch: true
+  belongs_to :statable, polymorphic: true
 
   validates :views, :ranks_count, numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :rank_avg, numericality: { greater_than_or_equal_to: 0 }
+
+  after_save :touch_parent
 
   def views_up
     self.views += 1
@@ -28,6 +30,12 @@ class Stat < ApplicationRecord
     self.ranks_count = statable.ranks.count
     self.rank_avg = statable.ranks.average(:score).to_f
     save
+  end
+
+  private
+
+  def touch_parent
+    statable.touch if saved_changes.keys.include?("rank_avg")
   end
 
 end
