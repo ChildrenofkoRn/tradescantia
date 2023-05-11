@@ -22,7 +22,7 @@ function sortRowsByRank() {
 
 function sortRowsBy(columnHead, columnNum = 1, type_sort = 'text') {
   let tbody = document.querySelector('tbody')
-  let rows = tbody.querySelectorAll('tr.review')
+  let rows = tbody.querySelectorAll('tr.review-short')
 
   let sortedRows = Array.from(rows)
 

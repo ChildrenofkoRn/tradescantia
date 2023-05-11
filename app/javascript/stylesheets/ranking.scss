@@ -1,7 +1,22 @@
-span.ranks-stars {
+.ranks-stars, span.ranking-stars {
   font-size: 1.1em;
   letter-spacing: 0.1em;
 }
-span.ranks-text {
+
+.ranks-stars {
+  color: #f27777;
+}
+
+.ranking-stars {
+  a {
+    color: #1182a4;
+  }
+
+  a:hover {
+    color: #f27777;
+  }
+}
+
+.ranks-text {
   margin-left: 0.5em;
 }

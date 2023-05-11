@@ -1,0 +1,42 @@
+// reviews
+
+.table.reviews {
+  margin-left: calc(var(--bs-gutter-x) * 0.6);
+
+  td.title a {
+    display: block;
+    width: 100%;
+  }
+
+  td > span.ranks-star {
+    margin-inline: 7px;
+    color: #9a87de;
+  }
+
+  th > span.arrows {
+    margin-inline: 7px;
+    color: #9a87de;
+  }
+
+}
+
+// review
+
+.review {
+  h1 {
+    color: #8687b3;
+  }
+
+  > table th {
+    color: #63a6d4;
+    width: 12%;
+  }
+
+  > .content {
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 1.6em;
+  }
+}
+
+.review-actions a:link { text-decoration: none;  }
+.review-actions a:hover { text-decoration: underline; }

@@ -1,4 +1,12 @@
 
+@media only screen and (min-width : 960px) {
+  .container { max-width: 960px; }
+}
+
+@media only screen and (min-width: 576px) {
+  .devise { max-width: 450px !important; }
+}
+
 .main-bg {
   background: linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
   min-height: 100vh;
@@ -9,12 +17,8 @@
   background-color: #f7f6f9 !important;
 }
 
-@media only screen and (min-width : 960px) {
-  .container { max-width: 960px; }
-}
-
-@media only screen and (min-width: 576px) {
-  .devise { max-width: 450px !important; }
+.hide {
+  display: none;
 }
 
 // pagination
@@ -41,29 +45,4 @@ nav.page.pagination {
   background-color: $indigo-100;
   color: #03775c;
   font-size: 1.1em;
-}
-
-// reviews
-
-.hide {
-  display: none;
-}
-
-.table.reviews {
-  margin-left: calc(var(--bs-gutter-x) * 0.6);
-}
-
-.table.reviews td.title a {
-  display: block;
-  width: 100%;
-}
-
-td > span.ranks-star {
-  margin-inline: 7px;
-  color: #9a87de;
-}
-
-th > span.arrows {
-  margin-inline: 7px;
-  color: #9a87de;
 }
