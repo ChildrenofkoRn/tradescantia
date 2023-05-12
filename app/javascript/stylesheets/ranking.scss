@@ -20,3 +20,7 @@
 .ranks-text {
   margin-left: 0.5em;
 }
+
+.rank-emoji {
+  margin-left: calc(var(--bs-gutter-x) * 0.2);
+}

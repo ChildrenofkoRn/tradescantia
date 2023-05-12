@@ -3,21 +3,21 @@
     = @review.title
 
   table.table.table-sm.mb-4
-    tr
-      th.author Author
+    tr.author
+      th Author
       td = @review.author.username
-    tr
-      th.date Date
+    tr.date
+      th Date
       td = time_ago_in_words(@review.created_at)
-    tr
-      - if @review.link.present?
-        th.source Source
+    - if @review.link.present?
+      tr.source
+        th Source
         td = build_link(@review.link)
-    tr
-      th.rank Rank
+    tr.rank
+      th Rank
       td = render "ranks/rank", resource: @review
-    tr
-      th.views Views
+    tr.views
+      th Views
       td = @review.stat.views
 
   = simple_format(@review.body, class: 'content m-2')

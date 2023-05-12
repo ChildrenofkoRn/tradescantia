@@ -6,6 +6,7 @@ feature 'User can see views stats', %q(
 ) do
 
   given!(:review) { create(:review) }
+  given!(:selector) { '.views > td' }
 
   describe 'as Unauthenticated user' do
     background do
@@ -13,10 +14,10 @@ feature 'User can see views stats', %q(
     end
 
     scenario 'a review' do
-      expect(page).to have_content("Views: 0")
+      expect(find(selector)).to have_content("0")
 
       refresh
-      expect(page).to have_content("Views: 1")
+      expect(find(selector)).to have_content("1")
     end
 
   end
@@ -28,10 +29,10 @@ feature 'User can see views stats', %q(
     end
 
     scenario 'a review' do
-      expect(page).to have_content("Views: 0")
+      expect(find(selector)).to have_content("0")
 
       refresh
-      expect(page).to have_content("Views: 1")
+      expect(find(selector)).to have_content("1")
     end
   end
 end

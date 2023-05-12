@@ -9,7 +9,7 @@ document.addEventListener("turbolinks:load", function(){
     console.log("Remove subscription and disconnect");
   }
 
-  const reviews = document.querySelector('.table.reviews > tbody');
+  const reviews = document.querySelector('.reviews tbody');
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
@@ -31,7 +31,7 @@ document.addEventListener("turbolinks:load", function(){
         if (reviews.childElementCount >= 16) {
           reviews.removeChild(reviews.lastElementChild);
         }
-        reviews.firstElementChild.insertAdjacentHTML("afterend", data);
+        reviews.insertAdjacentHTML("afterbegin", data);
       }
     });
   }

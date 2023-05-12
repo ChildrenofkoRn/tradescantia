@@ -1,21 +1,40 @@
 // reviews
 
-.table.reviews {
-  margin-left: calc(var(--bs-gutter-x) * 0.6);
+.reviews {
 
-  td.title a {
-    display: block;
-    width: 100%;
+  padding: 0 calc(var(--bs-gutter-x) * 0.6);
+
+  h1 {
+    color: #8687b3;
   }
 
-  td > span.ranks-star {
-    margin-inline: 7px;
-    color: #9a87de;
-  }
+  .table {
 
-  th > span.arrows {
-    margin-inline: 7px;
-    color: #9a87de;
+    td.title {
+      word-wrap: anywhere;
+      width: 55%;
+
+      a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    td > span.ranks-star {
+      margin-inline: 7px;
+      color: #9a87de;
+    }
+
+    th > span.arrows {
+      margin-inline: 7px;
+      color: #9a87de;
+    }
+
   }
 
 }
