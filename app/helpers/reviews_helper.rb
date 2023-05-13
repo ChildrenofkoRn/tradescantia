@@ -10,9 +10,4 @@ module ReviewsHelper
     link_to title.truncate(70), @review.link.url, target: "_blank"
   end
 
-  def ranks_grade(rank)
-    grading = %w(unrancked🧭 poor☠️ mediocre🤧 sterile🤐 good😸 notbad👾 lovely🩸 awesome!🤩)
-    grading[rank.round].capitalize
-  end
-
 end

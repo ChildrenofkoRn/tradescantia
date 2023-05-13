@@ -28,7 +28,7 @@ feature 'User can give a ranking after reading a review', %q(
             sleep 0.5
             expect(page).to_not have_link(href: /\/reviews\/#{review.id}\/ranking\?rank=/)
             page.find(".rank").has_css?(".bi-star-fill")
-            expect(page).to have_content("Total: avarage: #{score.to_f} (1 times)")
+            expect(page).to have_content("AVG #{score.to_f} (1 times)")
           end
         end
 
@@ -79,7 +79,7 @@ feature 'User can give a ranking after reading a review', %q(
             sleep 0.5
             expect(page).to_not have_link(href: /\/reviews\/#{review.id}\/ranking\?rank=/)
             page.find(".rank").has_css?(".bi-star-fill")
-            expect(page).to have_content("Total: avarage: #{score.to_f} (1 times)")
+            expect(page).to have_content("AVG #{score.to_f} (1 times)")
           end
         end
 

@@ -1,26 +1,33 @@
-h1= @review.title
+.review
+  h1.mb-4
+    = @review.title
 
-p
-  = 'Author: '
-  = @review.author.username
+  table.table.table-sm.mb-4
+    tr.author
+      th Author
+      td = @review.author.username
+    tr.date
+      th Date
+      td = time_ago_in_words(@review.created_at)
+    - if @review.link.present?
+      tr.source
+        th Source
+        td = build_link(@review.link)
+    tr.rank
+      th Rank
+      td = render "ranks/rank", resource: @review
+    tr.views
+      th Views
+      td = @review.stat.views
 
-- if @review.link.present?
-  p.source-link
-    = 'Source: '
-    = build_link(@review.link)
+  = simple_format(@review.body, class: 'content m-2')
 
-p.rank
-  = render "ranks/rank", resource: @review
-
-p.views
-  = "Views: #{@review.stat.views}"
-
-p= @review.body
-
-- if policy(@review).update?
-  ul.review_actions.m-4
-    li= link_to 'Edit', edit_review_path(@review)
-    li= link_to 'Delete', review_path(@review), data: {:confirm => 'Are you sure?'}, :method => :delete
+  - if policy(@review).update?
+    ul.review-actions.my-4
+      li= link_to 'Edit', edit_review_path(@review)
+      li= link_to 'Delete', review_path(@review), data: {:confirm => 'Are you sure?'}, :method => :delete
 
 
-p= link_to 'Back', reviews_path
+  p= button_to "Back to All", reviews_path, method: :get,
+      class: "btn btn-outline-primary",
+      html: { type: "button" }

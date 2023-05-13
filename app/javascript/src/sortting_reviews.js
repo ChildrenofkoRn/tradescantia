@@ -22,7 +22,7 @@ function sortRowsByRank() {
 
 function sortRowsBy(columnHead, columnNum = 1, type_sort = 'text') {
   let tbody = document.querySelector('tbody')
-  let rows = tbody.querySelectorAll('tr.review')
+  let rows = document.querySelectorAll('tr.review-short')
 
   let sortedRows = Array.from(rows)
 
@@ -97,6 +97,8 @@ function set_type(textValOne, textValTwo, type = 'text') {
 
 function hiddenArrowsOnColumn(columnClass) {
   let column = document.querySelector(columnClass)
+  if (!column) return
+
   column.querySelector(arrows.up).classList.add('hide')
   column.querySelector(arrows.down).classList.add('hide')
   column.querySelector(arrows.updown).classList.remove('hide')
