@@ -1,0 +1,21 @@
+# example settings
+
+development:
+  :concurrency: 5
+
+production:
+  :concurrency: 10
+  
+production: &prod
+  :concurrency: 10
+
+staging:
+  <<: *prod
+
+:max_retries: 3
+
+:queues:
+  - realtime
+  - default
+  - mailers
+  - low_priority

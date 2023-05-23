@@ -24,3 +24,8 @@
 every 1.day, at: '4:30 am' do
   runner "DailyRankingDigestJob.perform"
 end
+
+#  I'm too lazy to write another service
+every :reboot do
+  rake "ts:start"
+end

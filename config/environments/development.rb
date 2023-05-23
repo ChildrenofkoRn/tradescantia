@@ -37,7 +37,8 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
     config.active_record.cache_versioning = false
-    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 1.hour, namespace: 'trade_dev' }
+    config.cache_store = :redis_store, ENV.fetch("REDIS_URL") { "redis://localhost:6379/" },
+                         { expires_in: 1.hour, db: 0, namespace: 'dev:cache' }
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).

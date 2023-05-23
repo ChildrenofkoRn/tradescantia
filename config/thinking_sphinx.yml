@@ -1,7 +1,17 @@
+default: &default
+  pid_file: <%= Rails.root.join('tmp', 'pids', "#{Rails.env}.searchd.pid") %>
+  min_infix_len: 3
+
+
 test:
+  <<: *default
   mysql41: 9307
-  min_infix_len: 3
+
 development:
-  min_infix_len: 3
+  <<: *default
+
+staging:
+  <<: *default
+
 production:
-  min_infix_len: 3
+  <<: *default

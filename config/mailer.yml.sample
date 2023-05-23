@@ -1,0 +1,16 @@
+production: &prod
+  smtp:
+    address: smtp.server.example
+    port: 465
+    domain: server.example
+    authentication: plain
+    tls: true
+    enable_starttls_auto: true
+    user_name: <%= Rails.application.credentials[Rails.env.to_sym][:mailer][:user] %>
+    password: <%= Rails.application.credentials[Rails.env.to_sym][:mailer][:pass] %>
+
+  sender: <%= Rails.application.credentials[Rails.env.to_sym][:mailer][:sender] ||
+              Rails.application.credentials[Rails.env.to_sym][:mailer][:user] %>
+
+staging:
+  <<: *prod

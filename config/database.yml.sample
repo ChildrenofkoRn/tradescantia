@@ -20,6 +20,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  #  password: <%= ENV['TRADESCANTIA_DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
@@ -81,6 +82,13 @@ test:
 #
 production:
   <<: *default
+  username: deployer
+  password: <%= Rails.application.credentials[Rails.env.to_sym][:pg_pass] %>
   database: tradescantia_production
-  username: tradescantia
-  password: <%= ENV['TRADESCANTIA_DATABASE_PASSWORD'] %>
+
+
+staging:
+  <<: *default
+  username: deployer
+  password: <%= Rails.application.credentials[Rails.env.to_sym][:pg_pass] %>
+  database: tradescantia_staging

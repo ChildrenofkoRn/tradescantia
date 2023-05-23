@@ -17,9 +17,8 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
   config.action_controller.enable_fragment_cache_logging = true
   config.active_record.cache_versioning = false
-  config.cache_store = :redis_store,
-    'redis://localhost:6379/0/cache',
-    { expires_in: 1.hour, namespace: Rails.application.class.module_parent_name.downcase }
+  config.cache_store = :redis_store, ENV.fetch("REDIS_URL") { "redis://localhost:6379/" },
+                       { expires_in: 1.hour, db: 0, namespace: 'cache' }
 
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -67,8 +66,16 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "tradescantia_production"
+  #
+  #
 
+  config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
+
+  config.mailer = config_for(:mailer)
   config.action_mailer.perform_caching = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = config.mailer[:smtp]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
