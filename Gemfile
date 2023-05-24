@@ -48,6 +48,9 @@ gem 'oj'
 gem 'slim-rails'
 gem 'kaminari', '~> 1.2'
 
+# SEO
+gem "dynamic_sitemaps"
+
 # Search
 gem 'mysql2',          '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.5'

@@ -28,10 +28,11 @@
 # Ignore DBs sets
 /config/database.yml
 
-# Ignore precompiled javascript packs & assets
+# Ignore precompiled javascript packs & sitemap, etc
 /public/packs
 /public/packs-test
 /public/assets
+/public/sitemaps
 
 # Ignore node_modules
 /node_modules

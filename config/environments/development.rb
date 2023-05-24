@@ -2,7 +2,11 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.web_console.whitelisted_ips = '192.168.2.1'
-  config.action_mailer.default_url_options = { host: '192.168.2.4', port: 3000 }
+
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST") { "0.0.0.0" },
+    port: ENV.fetch('APP_PORT') { 3000 }
+  }
 
   # Disable minification in dev
   Slim::Engine.set_options pretty: true

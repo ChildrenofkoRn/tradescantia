@@ -125,6 +125,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    dynamic_sitemaps (2.0.0)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -432,6 +433,7 @@ DEPENDENCIES
   devise (= 4.8.1)
   doorkeeper
   dotenv-rails
+  dynamic_sitemaps
   factory_bot_rails
   faker
   jbuilder (~> 2.7)
