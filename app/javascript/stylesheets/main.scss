@@ -7,6 +7,11 @@
   .devise { max-width: 450px !important; }
 }
 
+.row {
+  min-height: 300px;
+  align-content: start;
+}
+
 .main-bg {
   background: linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
   min-height: 100vh;
@@ -41,4 +46,16 @@ a.page-link {
   background-color: $indigo-100;
   color: #03775c;
   font-size: 1.1em;
+}
+
+// Errors
+
+.error-page {
+  text-align: center;
+  font-size: 1.1em;
+
+  h1, h2, h3 {
+    color: #af86b3;
+    margin-bottom: $spacer;
+  }
 }
