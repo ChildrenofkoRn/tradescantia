@@ -1,20 +1,26 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-
   use_doorkeeper
 
   authenticate :user, lambda { |user| user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  devise_for :users,
-             path_names: { sign_in: 'login', sign_out: 'logout' },
-             controllers: { omniauth_callbacks: 'oauth_callbacks' }
-
   root 'reviews#index'
 
+  devise_for :users,
+             path_names: {
+               sign_in: 'login',
+               sign_out: 'logout'
+             },
+             controllers: { omniauth_callbacks: 'oauth_callbacks' }
+
   get 'search/index'
+
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#internal_server_error'
+  get '/422', to: 'errors#unprocessable_entity'
 
   concern :rankable do
     member do
