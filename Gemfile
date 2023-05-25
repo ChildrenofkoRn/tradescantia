@@ -48,6 +48,9 @@ gem 'oj'
 gem 'slim-rails'
 gem 'kaminari', '~> 1.2'
 
+# SEO
+gem "dynamic_sitemaps"
+
 # Search
 gem 'mysql2',          '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.5'
@@ -57,10 +60,17 @@ gem 'sidekiq', '~> 7'
 gem 'sinatra', require: false
 gem 'whenever', require: false
 
+# loads .env files
+gem 'dotenv-rails'
+
 # Caching
-# gems/redis-client-0.14.1/lib/redis_client/config.rb:21:in `initialize': unknown keywords: :scheme, :namespace, :expires_in, :raw (ArgumentError)
+# Downgrade, fix: gems/redis-client-0.14.1/lib/redis_client/config.rb:21:in `initialize': unknown keywords: :scheme, :namespace, :expires_in, :raw (ArgumentError)
 gem 'redis', '~> 4.0'
 gem 'redis-rails'
+
+# Display performance information such as SQL time and flame graphs for each request in your browser.
+# Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
+gem 'rack-mini-profiler', '~> 2.0', group: [:development, :staging]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -75,12 +85,17 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
-  # Display performance information such as SQL time and flame graphs for each request in your browser.
-  # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Deploy
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.6", require: false
+  gem "capistrano-bundler", require: false
+  gem "capistrano-rvm", require: false
+  gem 'capistrano-sidekiq', require: false
+  # gem 'capistrano3-puma', require: false
+  # gem 'capistrano-dotenv', require: false
 end
 
 group :test do
