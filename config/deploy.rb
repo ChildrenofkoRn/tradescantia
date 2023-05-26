@@ -50,16 +50,13 @@ set :keep_releases, 12
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+# Uploads configs/envs/master.key
 set :samples, %w(config/database.yml.sample config/mailer.yml.sample config/sidekiq.yml.sample .env.sample)
 
 before "deploy:check:linked_files", :upload_files do
   invoke 'uploads:master_key'
   invoke 'uploads:samples'
 end
-
-# before :deploy, :check, :linked_files do
-#   invoke "uploads:master_key"
-# end
 
 # Sphinx
 before "deploy:publishing", "sphinx:stop"
