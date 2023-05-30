@@ -1,0 +1,84 @@
+# place file in /home/%user%/.config/systemd/user/sidekiq.service
+#
+# You must have lingering enabled!
+# check:
+# loginctl show-user $USER --property Linger
+# enabling:
+# loginctl enable-linger $USER
+#
+# run w/o sudo:
+# attention "--user" is an option, not a username on the system!
+#
+# systemctl --user reenable sidekiq
+# systemctl --user daemon-reload
+# systemctl --user restart sidekiq
+#
+# check sidekiq is run:
+# systemctl --user status sidekiq
+# or
+# ps aux | grep [s]idekiq
+# or web UI
+# http://deployserver/sidekiq
+#
+# logs:
+# journalctl --user-unit sidekiq -n 50 -f
+# journalctl --user-unit sidekiq --since "5m ago"
+# journalctl --user -xeu sidekiq
+#
+# or run task capistrano from dev server
+# add lines in config/deploy.rb:
+# set :init_system, :systemd
+# set :service_unit_name, "sidekiq"
+# and run:
+# cap production sidekiq:restart
+
+[Unit]
+Description=sidekiq Tradescantia
+After=redis-server.service
+
+[Service]
+Type=notify
+
+# If your process locks up, systemd's watchdog will restart it within seconds.
+WatchdogSec=10
+
+# %h - specifier varibale systemd equal to User home directory eg: /home/deployer
+# See: https://manpages.ubuntu.com/manpages/bionic/man5/systemd.unit.5.html#specifiers
+
+WorkingDirectory=%h/data/tradescantia/current
+
+ExecStart=%h/.rvm/bin/rvm 3.1.4@tradescantia do bundle exec sidekiq -e production -C %h/data/tradescantia/current/config/sidekiq.yml
+
+# pid files have not been supported since Sidekiq 6
+# if need PID-file uncomment these two lines:
+ExecStartPost=/bin/sh -c "/bin/systemctl --user show -p MainPID sidekiq 2>/dev/null | /usr/bin/cut -d= -f2 > %h/data/tradescantia/current/tmp/pids/sidekiq.pid"
+PIDFile=%h/data/tradescantia/current/tmp/pids/sidekiq.pid
+
+# use `systemctl reload sidekiq` to send the quiet signal to Sidekiq
+# at the start of your deploy process.
+ExecReload=/bin/kill -TSTP $MAINPID
+
+# Greatly reduce Ruby memory fragmentation and heap usage
+# https://www.mikeperham.com/2018/04/25/taming-rails-memory-bloat/
+Environment=MALLOC_ARENA_MAX=2
+
+# restart if the process has exited
+RestartSec=1
+Restart=always
+# or restart if the process terminates with an error:
+# Restart=on-failure
+
+# Deprecate Ubuntu 22+
+# output goes to /var/log/syslog
+# StandardOutput=syslog
+# StandardError=syslog
+
+# This will default to "bundler" if we don't specify it
+SyslogIdentifier=sidekiq
+
+[Install]
+WantedBy=default.target
+
+# User service doesn't have target units such as multi-user.target or network.target or other system units
+# System units are not available and we cannot refer to them.
+# See list: systemctl --user list-units --type=target

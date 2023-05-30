@@ -18,10 +18,6 @@ Rails.application.routes.draw do
 
   get 'search/index'
 
-  get '/404', to: 'errors#not_found'
-  get '/500', to: 'errors#internal_server_error'
-  get '/422', to: 'errors#unprocessable_entity'
-
   concern :rankable do
     member do
       patch :ranking

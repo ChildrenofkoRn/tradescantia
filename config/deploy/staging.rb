@@ -7,10 +7,13 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
+set :env_file, "config/deploy/deploy_#{fetch(:stage)}.env"
+Dotenv.load(fetch(:env_file)) if Checker.exist?(fetch(:env_file))
+
 server "192.168.2.5", user: "dep", roles: %w{app db web}, primary: :true
 set :rails_env, :staging
 
-set :deploy_to, "/home/dep/data/tradescantia_cap"
+set :deploy_to, "/home/deployer/data/tradescantia"
 set :deploy_user, 'dep'
 
 set :keep_releases, 5
@@ -67,7 +70,7 @@ set :keep_releases, 5
 #   }
 
 set :ssh_options, {
-  keys: %w(/home/vagrant/.ssh/ChildrenofGit),
+  keys: ENV["DEPLOY_SSH_KEYS"].split(',').map(&:strip),
   forward_agent: true,
   auth_methods: %w(publickey password),
   port: 4444
