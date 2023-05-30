@@ -2,9 +2,6 @@
 
 development:
   :concurrency: 5
-
-production:
-  :concurrency: 10
   
 production: &prod
   :concurrency: 10

@@ -35,8 +35,8 @@ append :linked_files, "config/master.key", ".env", "config/database.yml",
                       "config/mailer.yml", "config/sidekiq.yml"
 
        # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system",
-                     "public/packs", "vendor", "storage", "node_modules", "db/sphinx"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker",
+                     "public/system", "vendor", "storage", "node_modules", "db/sphinx"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

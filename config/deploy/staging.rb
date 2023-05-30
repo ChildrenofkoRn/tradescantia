@@ -13,7 +13,7 @@ Dotenv.load(fetch(:env_file)) if Checker.exist?(fetch(:env_file))
 server "192.168.2.5", user: "dep", roles: %w{app db web}, primary: :true
 set :rails_env, :staging
 
-set :deploy_to, "/home/dep/data/tradescantia_cap"
+set :deploy_to, "/home/deployer/data/tradescantia"
 set :deploy_user, 'dep'
 
 set :keep_releases, 5
