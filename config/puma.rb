@@ -15,9 +15,10 @@ threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-if ENV.fetch("RAILS_ENV", "development") == "development"
-  worker_timeout 3600
-  bind        'tcp://192.168.2.4:3000'
+worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
+
+if ENV["BIND"]
+  bind ENV["BIND"]
 else
   port ENV.fetch("PORT") { 3000 }
 end

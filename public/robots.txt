@@ -1,1 +1,13 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+# example
+#
+# User-agent: *
+# Disallow: /sidekiq
+# Disallow: /users
+# Disallow: /admin
+# Disallow: /dashboard
+#
+# sitemap: https://tradescantia.example.com/sitemap/sitemap.xml
+
+User-agent: *
+Disallow: /

@@ -9,7 +9,7 @@ RSpec.describe DailyRankingDigestMailer, type: :mailer do
   it "renders the headers" do
     expect(mail.subject).to eq("Ranking digest")
     expect(mail.to).to eq [user.email]
-    expect(mail.from).to eq(["please-change-me-at-config-initializers-devise@example.com"])
+    expect(mail.from).to eq(["tradescantia@example.com"])
   end
 
   it "renders the body" do

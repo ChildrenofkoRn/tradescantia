@@ -38,6 +38,7 @@ RSpec.configure do |config|
   config.extend WithModel
   config.include OmniauthHelpers, type: :feature
   OmniAuth.config.test_mode = true
+  config.include ApiHelpers, type: :request
 
 
   # Fix WARN Selenium [DEPRECATION] [:capabilities] The :capabilities parameter
@@ -116,6 +117,20 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# module FactoryBot::Syntax::Methods
+#
+#   def with_nested_attributes_for(*args)
+#     attrs = FactoryBot.attributes_for(*args)
+#
+#     klass_name = args.first.to_s.camelize.constantize
+#     klass_name.reflect_on_all_associations(:has_one).each do |refl|
+#       attrs["#{refl.name}_attributes".to_sym] = FactoryBot.attributes_for(refl.name)
+#     end
+#
+#     attrs
+#   end
+# end
 
 # Sphinx startup debug
 # class Riddle::ExecuteCommand

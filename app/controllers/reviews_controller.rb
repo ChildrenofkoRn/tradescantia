@@ -5,10 +5,14 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :load_review, only: %i[show edit update destroy]
   before_action :authorize_review!, except: %i[ranking]
+
   after_action :verify_authorized
+  after_action :publishing_question_in_channel, only: :create
+  after_action  ->{ @review.stat.views_up }, if: -> { response.successful? }, only: :show
 
   def new
-    @review = current_user.reviews.new
+    @review = current_user.reviews.build
+    @review.build_link
   end
 
   def create
@@ -21,6 +25,7 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    @review.build_link if @review.link.blank?
   end
 
   def update
@@ -40,13 +45,15 @@ class ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.by_date.with_stats.includes(:author).page(params[:page])
+    @reviews = Review.by_date.includes(:author, :stat).page(params[:page])
   end
 
   private
 
   def review_params
-    params.require(:review).permit(:title, :body, Ranked::STRONG_PARAMS)
+    params.require(:review).permit(:title, :body,
+                                   Ranked::STRONG_PARAMS,
+                                   link_attributes: [:title, :url, :id, :_destroy])
   end
 
   def load_review
@@ -55,6 +62,18 @@ class ReviewsController < ApplicationController
 
   def authorize_review!
     authorize(@review || Review)
+  end
+
+  def publishing_question_in_channel
+    return if @review.errors.any?
+
+    ActionCable.server.broadcast(
+      'reviews',
+      ApplicationController.render(
+        partial: 'reviews/review',
+        locals: { review: @review }
+      )
+    )
   end
   
 end

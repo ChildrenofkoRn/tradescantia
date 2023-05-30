@@ -1,19 +1,31 @@
-h1= 'Availiable reviews:'
+.reviews
+  h1= 'Availiable reviews:'
 
-= paginate @reviews
+  = paginate @reviews, params: { resource: :review }
 
-ul.reviews.m-4
-  - @reviews.each do |review|
-    li= link_to review, class: 'list-group-item review'
-      span
-        => review.title
-        => render "shared/ranks_stars", rank: review.rank
-        => render "shared/ranks_text", rank: review.rank, count: review.ranks_count
-        => review.author.username
+  table.table
+    thead.thead-light
+      tr
+        th.sort-by-title
+          | Title
+          span.arrows
+            i.bi.bi-arrow-down-up
+            i.bi.bi-arrow-up.hide
+            i.bi.bi-arrow-down.hide
+        th Author
+        th.sort-by-rank
+          | Rank
+          span.arrows
+            i.bi.bi-arrow-down-up
+            i.bi.bi-arrow-up.hide
+            i.bi.bi-arrow-down.hide
+    - @reviews.each do |review|
+      - cache review do
+        = render review
 
-= paginate @reviews
+  = paginate @reviews, params: { resource: :review }
 
-- if policy(Review).create?
-  p= button_to "Add review", new_review_path, method: :get,
-                                              class: "btn btn-outline-primary",
-                                              html: { type: "button" }
+  - if policy(Review).create?
+    p= button_to "Add review", new_review_path, method: :get,
+                                                class: "btn btn-outline-primary",
+                                                html: { type: "button" }

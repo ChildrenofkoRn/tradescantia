@@ -1,3 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Nunito+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 $font-family-base: "Roboto", "Helvetica", "sans-serif";
+
+$bootstrap-icons-font-dir: '~bootstrap-icons/font/fonts';
+@import "~bootstrap-icons/font/bootstrap-icons.scss";

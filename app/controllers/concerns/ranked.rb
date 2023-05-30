@@ -14,10 +14,10 @@ module Ranked
     rank.score = params[:rank].to_i
 
     if rank.save
-      render :js, partial: "shared/ranked/ranking"
+      render :js, partial: "ranks/ranked/ranking"
     else
       flash.now.alert = rank.errors
-      render :js, partial: "shared/ranked/ranking", status: 422
+      render :js, partial: "ranks/ranked/ranking", status: 422
     end
   end
 

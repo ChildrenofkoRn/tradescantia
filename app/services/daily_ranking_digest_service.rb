@@ -12,6 +12,7 @@ class DailyRankingDigestService
 
   private
 
+  # TODO refactor w model Stat
   def top_reviews_last_day_by_rank(top: 5)
     ranks = Rank.arel_table
     rank_avg = Arel::Nodes::NamedFunction.new('COALESCE', [ranks[:score], 0])

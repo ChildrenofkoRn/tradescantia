@@ -15,6 +15,11 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+  config.action_controller.enable_fragment_cache_logging = true
+  config.active_record.cache_versioning = false
+  config.cache_store = :redis_store, ENV.fetch("REDIS_URL") { "redis://localhost:6379/" },
+                       { expires_in: 1.hour, db: 0, namespace: 'cache' }
+
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
@@ -44,6 +49,8 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  # allow https
+  config.action_cable.allowed_request_origins = ["https://#{ENV['APP_HOST']}"]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -61,8 +68,16 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "tradescantia_production"
+  #
+  #
 
+  config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
+
+  config.mailer = config_for(:mailer)
   config.action_mailer.perform_caching = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = config.mailer[:smtp]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

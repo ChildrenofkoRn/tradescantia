@@ -24,3 +24,12 @@
 every 1.day, at: '4:30 am' do
   runner "DailyRankingDigestJob.perform"
 end
+
+every 1.day, at: '3:30 am' do
+  rake "sitemap:generate"
+end
+
+#  I'm too lazy to write another service
+every :reboot do
+  rake "ts:start"
+end

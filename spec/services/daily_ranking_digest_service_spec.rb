@@ -32,7 +32,7 @@ RSpec.describe DailyRankingDigestService do
     reviews_ranked.map { |review| create(:rank, rankable: review, author: users.last) }
 
     # sort by rank avg score & review.created_at
-    reviews_sorted = reviews_ranked.sort_by { |review| [review.rank, review.created_at.to_i] }.reverse!
+    reviews_sorted = reviews_ranked.sort_by { |review| [review.ranks.average(:score).to_f, review.created_at.to_i] }.reverse!
 
     # get first top 5
     reviews_sort_by_rank_ids = reviews_sorted.first(5).map(&:id)

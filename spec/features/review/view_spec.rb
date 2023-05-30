@@ -40,16 +40,16 @@ feature 'User can see a list of reviews or a review', %q(
       end
 
       scenario '15 reviews per page' do
-        expect(page.all('a.list-group-item.review').count).to eql(15)
+        expect(page.all('a.link-review').count).to eql(15)
       end
 
       scenario 'goes to the second page'  do
         within(all("nav.page.pagination").first) do
-          click_link('2', href: '/?page=2')
+          click_link('2', href: /\/\?page=2*/)
         end
 
         expect(page.all("nav.page.pagination").count).to eql(2)
-        expect(page.all('a.list-group-item.review').count).to eql(10)
+        expect(page.all('a.link-review').count).to eql(10)
       end
     end
 
@@ -92,16 +92,16 @@ feature 'User can see a list of reviews or a review', %q(
         end
 
         scenario '15 reviews per page' do
-          expect(page.all('a.list-group-item.review').count).to eql(15)
+          expect(page.all('a.link-review').count).to eql(15)
         end
 
         scenario 'goes to the second page'  do
           within(all("nav.page.pagination").first) do
-            click_link('2', href: '/?page=2')
+            click_link('2', href: /\/\?page=2*/)
           end
 
           expect(page.all("nav.page.pagination").count).to eql(2)
-          expect(page.all('a.list-group-item.review').count).to eql(10)
+          expect(page.all('a.link-review').count).to eql(10)
         end
       end
     end
@@ -142,16 +142,16 @@ feature 'User can see a list of reviews or a review', %q(
         end
 
         scenario '15 reviews per page' do
-          expect(page.all('a.list-group-item.review').count).to eql(15)
+          expect(page.all('a.link-review').count).to eql(15)
         end
 
         scenario 'goes to the second page'  do
           within(all("nav.page.pagination").first) do
-            click_link('2', href: '/?page=2')
+            click_link('2', href: /\/\?page=2*/)
           end
 
           expect(page.all("nav.page.pagination").count).to eql(2)
-          expect(page.all('a.list-group-item.review').count).to eql(10)
+          expect(page.all('a.link-review').count).to eql(10)
         end
       end
     end

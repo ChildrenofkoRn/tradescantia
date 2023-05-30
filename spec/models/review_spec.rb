@@ -5,6 +5,11 @@ RSpec.describe Review, type: :model do
   describe 'associations' do
     it { should belong_to(:author) }
     it { should have_many(:ranks).dependent(:destroy) }
+    it { should have_one(:link).dependent(:destroy) }
+  end
+
+  describe 'nested attrs' do
+    it { should accept_nested_attributes_for(:link) }
   end
 
   describe 'validations' do
@@ -12,5 +17,5 @@ RSpec.describe Review, type: :model do
     it { should validate_presence_of(:body) }
   end
 
-  it_behaves_like 'be Modulable', %w[Authorable Rankable]
+  it_behaves_like 'be Modulable', %w[Authorable Rankable Statable]
 end

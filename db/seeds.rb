@@ -6,6 +6,25 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+if Rails.env.production? || Rails.env.staging?
+    mail = Rails.application.credentials[Rails.env.to_sym][:mailer][:sender] ||
+          Rails.application.credentials[Rails.env.to_sym][:mailer][:user]
+
+    unless User.find_by(email: mail)
+      name = Rails.application.credentials[Rails.env.to_sym][:admin_name] || "Tradescantia"
+      pass = Rails.application.credentials[Rails.env.to_sym][:admin_pass] || "FalseReality"
+
+      User.create!(
+        username:              name,
+        email:                 mail,
+        password:              pass,
+        password_confirmation: pass,
+        type:                  'Admin',
+        confirmed_at:          Time.current
+      )
+    end
+end
+
 if ENV.fetch("RAILS_ENV", "development") == "development"
   users = []
   13.times do

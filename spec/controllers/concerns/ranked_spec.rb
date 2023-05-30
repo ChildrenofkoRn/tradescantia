@@ -16,7 +16,11 @@ RSpec.describe Ranked, type: :controller do
 
     model do
       include Rankable
+
       belongs_to :author, class_name: "User"
+      has_one :stat, dependent: :destroy, as: :statable
+
+      after_create ->(art) { art.create_stat }
     end
   end
 
@@ -66,7 +70,7 @@ RSpec.describe Ranked, type: :controller do
           end
 
           it 'render runking template' do
-            expect(set_rank).to render_template "shared/ranked/_ranking"
+            expect(set_rank).to render_template "ranks/ranked/_ranking"
           end
         end
 
@@ -94,7 +98,7 @@ RSpec.describe Ranked, type: :controller do
           end
 
           it 'render runking template' do
-            expect(set_rank).to render_template "shared/ranked/_ranking"
+            expect(set_rank).to render_template "ranks/ranked/_ranking"
           end
         end
 

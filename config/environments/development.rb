@@ -2,7 +2,14 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.web_console.whitelisted_ips = '192.168.2.1'
-  config.action_mailer.default_url_options = { host: '192.168.2.4', port: 3000 }
+
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST") { "0.0.0.0" },
+    port: ENV.fetch('APP_PORT') { 3000 }
+  }
+
+  # Disable minification in dev
+  Slim::Engine.set_options pretty: true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -28,9 +35,14 @@ Rails.application.configure do
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
+    # config.action_controller.perform_caching = false
+    #
+    # config.cache_store = :null_store
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+    config.active_record.cache_versioning = false
+    config.cache_store = :redis_store, ENV.fetch("REDIS_URL") { "redis://localhost:6379/" },
+                         { expires_in: 1.hour, db: 0, namespace: 'dev:cache' }
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
