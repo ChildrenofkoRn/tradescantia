@@ -12,7 +12,7 @@ For PostgreSQL & Redis, there is a config for Docker Compose and a makefile for 
 a little instruction here: [How to run docker services?](docker/docker.md)
 
 ### systemd
-Templates systemd services: [docs/deploy/systemd/](systemd/)  
+Templates systemd services: [docs/deploy/systemd](systemd/)  
 You can read more [here](systemd/systemd.md).
 
 ## Directly deploy in capistrano:

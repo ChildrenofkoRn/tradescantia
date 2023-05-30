@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (May 30, 2023)
+
+* Now we have stats on views and ranking
+* Sorting the reviews page
+* API for user profiles
+* The reviews page is more responsive thanks to caching and Pub/Sub technology!
+* Our app is now easy to deploy!
+
 ## 0.2.1 (April 15, 2023)
 
 * Gems updated fixing vulnerabilities

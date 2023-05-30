@@ -1,4 +1,4 @@
-# place file in /home/%user%/.config/systemd/user/puma.service
+# place file in /home/%user%/.config/systemd/user/sidekiq.service
 #
 # You must have lingering enabled!
 # check:

@@ -13,7 +13,7 @@ Templates systemd service for Puma and Sidekiq:
   loginctl enable-linger $USER
   ```
 3. Edit the paths in the configurations if they are different and activate them:
-  ```
+  ```bash
   systemctl --user reenable puma 
   systemctl --user reenable sidekiq
   ```

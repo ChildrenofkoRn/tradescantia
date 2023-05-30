@@ -10,6 +10,8 @@
 
 Agile with User stories: [Pivotal Tracker][tracker]
 
+*( Select Done in the sidebar on the left to see all tasks )*  
+
 **Currently implemented:**
 - Controller (base actions CRUD) and model Review
 - User is the author of his reviews (Authorable Concern & tests w with_model)
@@ -22,14 +24,23 @@ Agile with User stories: [Pivotal Tracker][tracker]
 - Mailing service Daily digest of top reviews
 - Github Actions
 - Search via Sphinx w real time indexing
+- ActionCable for review's index
+- Some statistics for reviews (views & rating)
+- Sorting the list of reviews by title/rank (JS, base implementation quick sort)
+- Caching for the reviews page
+- API for profiles with Doorkeeper & JSON:API Serialization
+- Custom pages for errors
+- Deploy with capistrano
 
 **Upcoming plans:**
-- ActionCable for review's index
-- Simple API
-- Dashboard
+- Admin Dashboard
 - Badges
+- Tags
 - Search via ElasticSearch
 - 
+
+**Note**  
+Some gems were not used intentionally, like `decent_exposure` (simplifies development and testing) or `ActionText` (easy to install and use, nothing interesting).
 
 ### Deploy
 Read more about deploying  the app here: [DEPLOY.md](docs/deploy/DEPLOY.md)  
