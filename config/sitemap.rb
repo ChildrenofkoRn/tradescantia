@@ -1,6 +1,8 @@
 # Change this to your host. See the readme at https://github.com/lassebunk/dynamic_sitemaps
 # for examples of multiple hosts and folders.
-host "www.#{ENV.fetch("APP_HOST")}"
+host "#{ENV.fetch("APP_HOST")}"
+
+protocol "https"
 
 sitemap :site do
   url root_url, last_mod: Time.now, change_freq: "daily", priority: 1.0
@@ -12,7 +14,7 @@ sitemap :site do
   end
 end
 
-ping_with "http://#{ENV.fetch("APP_HOST")}/sitemap.xml"
+ping_with "https://#{ENV.fetch("APP_HOST")}/sitemap.xml"
 
 # You can have multiple sitemaps like the above – just make sure their names are different.
 

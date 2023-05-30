@@ -49,7 +49,8 @@ gem 'slim-rails'
 gem 'kaminari', '~> 1.2'
 
 # SEO
-gem "dynamic_sitemaps"
+# https option is not available on rubygems
+gem "dynamic_sitemaps", github: 'lassebunk/dynamic_sitemaps'
 
 # Search
 gem 'mysql2',          '~> 0.4',    :platform => :ruby

@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/lassebunk/dynamic_sitemaps.git
+  revision: 37beeba143e8202218ee814056231b0e6974bafb
+  specs:
+    dynamic_sitemaps (2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,7 +131,6 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    dynamic_sitemaps (2.0.0)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -433,7 +438,7 @@ DEPENDENCIES
   devise (= 4.8.1)
   doorkeeper
   dotenv-rails
-  dynamic_sitemaps
+  dynamic_sitemaps!
   factory_bot_rails
   faker
   jbuilder (~> 2.7)
