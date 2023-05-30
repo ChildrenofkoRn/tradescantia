@@ -1,0 +1,64 @@
+# place file in /home/%user%/.config/systemd/user/puma.service
+#
+# You must have lingering enabled!
+# check:
+# loginctl show-user $USER --property Linger
+# enabling:
+# loginctl enable-linger $USER
+#
+# run w/o sudo:
+# attention "--user" is an option, not a username on the system!
+#
+# systemctl --user reenable puma
+# systemctl --user daemon-reload
+# systemctl --user restart puma
+#
+# check puma is run:
+# systemctl --user status puma
+# or
+# ps aux | grep [p]uma
+#
+# logs:
+# journalctl --user-unit puma -n 50 -f
+# journalctl --user-unit puma --since "5m ago"
+# journalctl --user -xeu puma
+
+
+[Unit]
+Description=Puma App Server for Tradescantia
+After=redis-server.service
+
+[Service]
+Type=simple
+
+# Systemd integration failed.
+# It looks like you're trying to use systemd notify but don't have sd_notify gem installed
+#Type=notify
+# If your process locks up, systemd's watchdog will restart it within seconds.
+# uncomment if Type=notify
+#WatchdogSec=10
+
+# %h - specifier varibale systemd equal to User home directory eg: /home/deployer
+# See: https://manpages.ubuntu.com/manpages/bionic/man5/systemd.unit.5.html#specifiers
+
+WorkingDirectory=%h/data/tradescantia/current
+
+# set RAILS_ENV
+# this is necessary if you want to restart puma directly on the server without capistrano
+EnvironmentFile=%h/data/tradescantia/current/.env
+# or directly
+#Environment=RAILS_ENV=production
+
+ExecStart=%h/.rvm/bin/rvm 3.1.4@tradescantia do bundle exec puma
+# or
+# if you have the same version of ruby in default and gemset that works, too:
+#ExecStart=%h/.rvm/bin/rvm default do bundle exec puma
+
+# restart if puma process has exited
+RestartSec=1
+Restart=always
+
+[Install]
+WantedBy=default.target
+
+# User service doesn't have target units such as multi-user.target or network.target

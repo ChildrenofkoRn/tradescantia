@@ -31,6 +31,14 @@ Agile with User stories: [Pivotal Tracker][tracker]
 - Search via ElasticSearch
 - 
 
+### Deploy
+Read more about deploying  the app here: [DEPLOY.md](docs/deploy/DEPLOY.md)  
+  
+The manual also includes templates:
+  - systemd services Puma & Sidekiq
+  - Nginx config
+  - docker-compose.yml for PostgreSQL & Redis services
+
 ### About
 
 ![tradescantia](docs/readme-tradescantia-pink-hill.gif "Tradescantia Pink Hill")
