@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1 (June 01, 2023)
+* Added `whenever` to the capistrano tasks
+* Documentation supplemented
+* Added documentation for the API
+
 ## 0.3.0 (May 30, 2023)
 
 * Now we have stats on views and ranking
