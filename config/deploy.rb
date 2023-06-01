@@ -15,7 +15,7 @@ set :rvm_ruby_version, "3.1.4@#{fetch(:application)}"
 # set :rvm_ruby_version, ENV['GEM_HOME'].gsub(/.*\//,'')
 
 # fix: 'ERR_OSSL_EVP_UNSUPPORTED' when compiling packs with the latest node.js
-# its also a good idea to add this ENV directly to the ~/.profile on deploy server
+# its also a good idea to add this ENV directly to the ~/.bash_profile on deploy server
 set :default_env, {
   'NODE_OPTIONS' => '--openssl-legacy-provider',
 }

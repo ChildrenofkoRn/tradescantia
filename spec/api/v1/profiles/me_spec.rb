@@ -35,8 +35,8 @@ describe 'Profiles API', type: :request do
         expect(json["attributes"]["reviews_count"]).to eq reviews.size.to_s
       end
 
-      it 'returns avarage_rank_given' do
-        expect(json["attributes"]["avarage_rank_given"]).to eq ranks.first.score.to_f.to_s
+      it 'returns average_rank_given' do
+        expect(json["attributes"]["average_rank_given"]).to eq ranks.first.score.to_f.to_s
       end
 
     end

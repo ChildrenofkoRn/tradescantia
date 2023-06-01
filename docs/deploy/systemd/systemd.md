@@ -1,6 +1,6 @@
 # systemd services
 Templates systemd service for Puma and Sidekiq:
-1. You need to copy them to /home/{YOURUSER}/.config/systemd/user
+1. You need to copy them to `/home/{YOURUSER}/.config/systemd/user`
   ```bash
   cp docs/deploy/systemd/puma.service ~/.config/systemd/user/puma.service
   cp docs/deploy/systemd/sidekiq.service ~/.config/systemd/user/sidekiq.service
