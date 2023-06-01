@@ -5,7 +5,7 @@
 _You need docker & compose installed._  
 All commands are executed from the user:
 * `cd capistrano_deploy_folder`
-* copy `docker-compose.yml` & `Makefile` from `docs/deploy/docker/`
+* copy [docker-compose.yml](docker-compose.yml) & [Makefile](Makefile) from `docs/deploy/docker/`
 * edit `docker-compose.yml` to set passwords for databases
 * `mkdir -p docker_data/rediska && chmod -R 700 docker_data && touch docker_data/.psql_history`
 * `make up` - create & run container for PostgresSQL & Redis
