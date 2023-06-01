@@ -43,12 +43,15 @@ Agile with User stories: [Pivotal Tracker][tracker]
 Some gems were not used intentionally, like `decent_exposure` (simplifies development and testing) or `ActionText` (easy to install and use, nothing interesting).
 
 ### Deploy
-Read more about deploying  the app here: [DEPLOY.md](docs/deploy/DEPLOY.md)  
+Read more about deploying the app here: [DEPLOY.md](docs/deploy/DEPLOY.md)  
   
 The manual also includes templates:
   - systemd services Puma & Sidekiq
   - Nginx config
   - docker-compose.yml for PostgreSQL & Redis services
+
+### REST API
+Read more about: [API.md](docs/API.md)
 
 ### About
 

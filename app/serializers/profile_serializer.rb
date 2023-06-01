@@ -16,7 +16,7 @@ class ProfileSerializer
     "#{object.reviews.size}"
   end
 
-  attribute :avarage_rank_given do |user|
+  attribute :average_rank_given do |user|
     ranks = user.ranks.pluck(:score)
     result = ranks.empty? ? 0 : (ranks.sum(0.0) / ranks.size).round(2)
     "#{result}"
