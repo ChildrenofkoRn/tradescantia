@@ -1,10 +1,14 @@
-desc 'Executes a command on the deploy server'
-task :rake, [:command] do |_task, args|
+desc <<-DESC
+  Run whenever with any option: cap production whenever[--help]
+  `cap production whenever[--update-crontab]`
+  `cap production whenever[--clear-crontab]`
+DESC
+task :whenever, [:command] do |_task, args|
   on primary(:app) do
     if test("[ -L #{release_path} ]")
       within release_path do
         with rails_env: fetch(:rails_env) do
-          rake args[:command]
+          execute :bundle, "exec whenever #{args[:command]}"
         end
       end
     else

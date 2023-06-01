@@ -38,7 +38,9 @@ if you run the command directly on the app server.
    For example, you need to set the domain in APP_HOST for the mailing, the sitemap and action_cable w https.
 7. if all is successful, the application will be deployed and the necessary services will be restarted, like: sphinx/puma/sidekiq.
 8. `cap production rake[db:seed]` if needed
-9. enjoy!
+9. Run `whenever` if needed, eg: `cap production whenever[--update-crontab]`
+   See help: `cap production whenever[--help]`
+10. enjoy!
 
 ## After deploy:
 - You can run any rake command via capistrano:
