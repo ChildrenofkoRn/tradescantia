@@ -19,7 +19,8 @@ RSpec.describe Authorization, type: :model do
     describe "uniqueness" do
       subject { Authorization.new(provider: "github", uid: "220926", user: create(:user)) }
 
-      it { should validate_uniqueness_of(:provider).scoped_to(:uid) }
+      it { should validate_uniqueness_of(:provider).scoped_to(:uid).
+            with_message('Provider already exists for this uid.') }
     end
 
   end
