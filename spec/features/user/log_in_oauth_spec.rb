@@ -13,13 +13,6 @@ feature 'User can sign in with OAuth providers', %q{
     mock_auth_hash(provider: 'github', email: user_email)
 
     click_on 'Sign in with GitHub'
-    expect(page).to have_content 'You have to confirm your email address before continuing.'
-
-    open_email user_email
-    current_email.click_link 'Confirm my account'
-    expect(page).to have_content 'Your email address has been successfully confirmed.'
-
-    click_on 'Sign in with GitHub'
     expect(page).to have_content 'Successfully authenticated from Github account.'
   end
 
