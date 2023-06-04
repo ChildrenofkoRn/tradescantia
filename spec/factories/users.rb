@@ -4,8 +4,8 @@ FactoryBot.define do
     sequence(:username) { |n| "#{n}_username" }
     sequence(:email) { |n| "#{n}_user@example.edu" }
 
-    password { '0987654321' }
-    password_confirmation { '0987654321' }
+    password { '0987654321ZYXWVUTSRQ' }
+    password_confirmation { '0987654321ZYXWVUTSRQ' }
     confirmed_at { Time.now }
 
 
