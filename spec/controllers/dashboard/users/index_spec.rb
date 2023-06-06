@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Dashboard::UsersController, type: :controller do
 
-  describe "GET #index" do
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe "Authenticated user" do
     context 'by Admin' do
       let(:admin) { create(:admin) }
@@ -24,6 +17,31 @@ RSpec.describe Dashboard::UsersController, type: :controller do
       it 'renders index view' do
         expect(response).to render_template :index
       end
+    end
+
+    context 'by User' do
+
+      let(:user) { create(:user) }
+      before { login(user) }
+
+      let(:reviews) { create_list(:review, 3) }
+      before  { get :index }
+
+      it 'trying renders index view' do
+        expect(response).to redirect_to root_path
+        expect(flash[:alert]).to eql("You are not authorized to perform this action.")
+      end
+    end
+
+  end
+
+  describe "Unauthenticated user" do
+    let(:reviews) { create_list(:review, 3) }
+
+    before  { get :index }
+
+    it 'trying renders index view' do
+      expect(response).to redirect_to new_user_session_path
     end
   end
 
