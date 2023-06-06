@@ -14,6 +14,8 @@ class User < ApplicationRecord
 
   has_many :authorizations, dependent: :destroy
 
+  scope :by_date, -> { order(created_at: :desc) }
+
   validates :email, presence: true, uniqueness: { case_sensitive: false },
             format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
   validates :username, presence: true, uniqueness: { case_sensitive: false },

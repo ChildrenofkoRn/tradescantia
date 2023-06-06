@@ -1,0 +1,23 @@
+.users
+  h1= 'Users:'
+
+  = paginate @users
+
+  table.table
+    thead.thead-light
+      tr
+        th Username
+        th Type
+        th Email
+        th Created
+        th Updated
+    - @users.each do |user|
+      tr *{ class: "user type-#{user.type}" }
+        td= user.username
+        td= user.type
+        td= user.email
+        td= user.created_at.to_formatted_s(:long)
+        td= user.updated_at.to_formatted_s(:long)
+
+
+  = paginate @users
