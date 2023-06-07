@@ -9,4 +9,8 @@ class DashboardPolicy < ApplicationPolicy
   def index?
     login? && user.admin?
   end
+
+  def make_admin?
+    index?
+  end
 end

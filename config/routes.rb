@@ -36,7 +36,11 @@ Rails.application.routes.draw do
 
 
   namespace :dashboard do
-    resources :users, only: [:index]
+    resources :users, only: [:index] do
+      collection do
+        patch :make_admin
+      end
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

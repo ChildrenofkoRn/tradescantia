@@ -9,7 +9,7 @@ Rails.application.configure do
   }
 
   # Disable minification in dev
-  Slim::Engine.set_options pretty: true
+  # Slim::Engine.set_options pretty: true
 
   # Settings specified here will take precedence over those in config/application.rb.
 

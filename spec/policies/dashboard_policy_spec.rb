@@ -7,20 +7,23 @@ RSpec.describe DashboardPolicy, type: :policy do
   context "Admin" do
     let(:user) { create(:admin) }
 
-    it { should     authorize(:index) }
+    it { should            authorize(:index) }
+    it { should       authorize(:make_admin) }
   end
 
   context "User" do
     let(:user) { create(:user) }
 
-    it { should_not authorize(:index) }
+    it { should_not        authorize(:index) }
+    it { should_not   authorize(:make_admin) }
   end
 
   context "Visitor" do
 
     let(:user) { nil }
 
-    it { should_not authorize(:index) }
+    it { should_not        authorize(:index) }
+    it { should_not   authorize(:make_admin) }
   end
 
 end

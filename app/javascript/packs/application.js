@@ -10,6 +10,7 @@ import "channels"
 
 import '../src/plugins'
 import '../src/sortting_reviews'
+import '../src/dashboard/users/change_user_type'
 
 Rails.start()
 Turbolinks.start()
