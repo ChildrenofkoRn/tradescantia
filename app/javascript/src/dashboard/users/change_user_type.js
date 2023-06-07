@@ -9,6 +9,9 @@ document.addEventListener('turbolinks:load', function() {
     document.querySelector('.make-admin')
       .addEventListener('click', handlerChangeUserType('Admin'))
 
+    document.querySelector('.make-user')
+      .addEventListener('click', handlerChangeUserType('User'))
+
     document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
       checkbox.addEventListener('change', function() {
         if (this.checked) {
@@ -85,7 +88,7 @@ function toggle_buttons(show) {
 function xhrUsersPatch(params) {
   let json = JSON.stringify({ user: params } )
 
-  return fetch('/dashboard/users/make_admin', {
+  return fetch('/dashboard/users/change_type', {
     method: 'PATCH',
     headers: {
       Accept: 'application/json',

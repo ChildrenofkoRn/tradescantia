@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     resources :users, only: [:index] do
       collection do
-        patch :make_admin
+        patch :change_type
       end
     end
   end
