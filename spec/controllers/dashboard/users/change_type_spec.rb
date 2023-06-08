@@ -66,7 +66,7 @@ RSpec.describe Dashboard::UsersController, type: :controller do
           it 'users are unchanged' do
             set_invalid_type
             users.each do |user|
-              expect { user.reload }.to_not change(user_unchanged, :type)
+              expect { user.reload }.to_not change(user, :type)
             end
           end
 

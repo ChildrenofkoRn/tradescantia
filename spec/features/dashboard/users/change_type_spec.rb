@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Admin can see a list of users or a review', %q(
-  Users and Unauthenticated do not have access to
+  Users and Unauthenticated dont have access
 ) do
 
   given!(:users) { create_list(:user, 2) }
@@ -13,7 +13,7 @@ feature 'Admin can see a list of users or a review', %q(
     describe 'as Admin' do
       background do
         log_in(admin)
-        visit dashboard_users_path
+        click_on 'Dashboard'
       end
 
       scenario 'change type User to Admin', js: true do
@@ -83,25 +83,5 @@ feature 'Admin can see a list of users or a review', %q(
 
     end
 
-    describe 'as User' do
-      background do
-        log_in(users.first)
-        visit dashboard_users_path
-      end
-
-      scenario 'tries to visit', js: true do
-        expect(page).to have_current_path(root_path)
-        expect(page).to have_content("You are not authorized to perform this action.")
-      end
-    end
-  end
-
-  describe 'Unauthenticated user' do
-
-    scenario 'tries to visit' do
-      visit dashboard_users_path
-      expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_content("You need to sign in or sign up before continuing.")
-    end
   end
 end

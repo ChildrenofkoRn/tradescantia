@@ -4,9 +4,9 @@ class Dashboard::UsersController < Dashboard::BaseController
   end
 
   def change_type
-    return head :unprocessable_entity unless helpers.validate_type?(user_params[:type])
+    return head :unprocessable_entity unless helpers.valid_type?(user_params[:type])
 
-    User.where(id: user_params[:ids])
+    User.where(id: user_params[:ids]).in_batches(of: 100)
         .update_all(type: user_params[:type], updated_at: Time.current)
     head :ok
   end

@@ -3,9 +3,16 @@
 
   = paginate @users
 
-  .actions.disabled-panel
-    = button_tag "Make Admin", class: "make-admin btn btn-outline-primary"
-    = button_tag "Make User", class: "make-user btn btn-outline-primary"
+  ul.actions.disabled-panel
+    li
+      = button_tag "Uncheck All", class: "uncheck-all btn btn-outline-primary"
+    li
+      = button_tag "Make Admin", class: "make-admin btn btn-outline-primary"
+    li
+      = button_tag "Make User", class: "make-user btn btn-outline-primary"
+
+  .resource-errors.alert.alert-danger.hide
+    | Some Errors
 
   table.table
     thead.thead-light

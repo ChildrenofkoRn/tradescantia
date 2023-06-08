@@ -4,8 +4,8 @@ header.mb-3.border-bottom.bg-light
       nav.nav.col-12.col-sm-auto.me-sm-auto.mb-2.justify-content-center.mb-md-0
         = link_to 'Home',  root_path, class: 'nav-link'
         = link_to 'Reviews', reviews_path, class: 'nav-link'
-        a.nav-link[href="#"]
-          | Empty
+        - if policy(:dashboard).index?
+          = link_to 'Dashboard', dashboard_users_path, class: 'nav-link'
         a.nav-link.disabled
           | Disabled
 

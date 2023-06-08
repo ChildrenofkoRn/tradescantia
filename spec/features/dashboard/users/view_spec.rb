@@ -16,7 +16,7 @@ feature 'Admin can see a list of users or a review', %q(
 
       describe 'sees' do
         background do
-          visit dashboard_users_path
+          click_on 'Dashboard'
         end
 
         scenario 'a list of users' do
@@ -45,9 +45,39 @@ feature 'Admin can see a list of users or a review', %q(
           end
 
           expect(page.all("nav.page.pagination").count).to eql(2)
-          # expect(page.all('a.link-review').count).to eql(10)
         end
       end
+    end
+
+    describe 'as User' do
+      background do
+        log_in(users.first)
+        visit dashboard_users_path
+      end
+
+      scenario 'tries open dashboard via menu' do
+        visit root_path
+        expect(page).to_not have_link('', href: '/dashboard/users')
+      end
+
+      scenario 'tries to visit' do
+        expect(page).to have_current_path(root_path)
+        expect(page).to have_content("You are not authorized to perform this action.")
+      end
+    end
+  end
+
+  describe 'Unauthenticated user' do
+
+    scenario 'tries open dashboard via menu' do
+      visit root_path
+      expect(page).to_not have_link('', href: '/dashboard/users')
+    end
+
+    scenario 'tries to visit' do
+      visit dashboard_users_path
+      expect(page).to have_current_path(new_user_session_path)
+      expect(page).to have_content("You need to sign in or sign up before continuing.")
     end
   end
 end
