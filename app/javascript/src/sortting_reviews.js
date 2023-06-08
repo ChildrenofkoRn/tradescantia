@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', function() {
-  let control_title = document.querySelector('.sort-by-title')
-  let control_rank = document.querySelector('.sort-by-rank')
+  const control_title = document.querySelector('.sort-by-title')
+  const control_rank = document.querySelector('.sort-by-rank')
 
   if (control_title) control_title.addEventListener('click', sortRowsByTitle)
   if (control_rank) control_rank.addEventListener('click', sortRowsByRank)
@@ -21,8 +21,8 @@ function sortRowsByRank() {
 }
 
 function sortRowsBy(columnHead, columnNum = 1, type_sort = 'text') {
-  let tbody = document.querySelector('tbody')
-  let rows = document.querySelectorAll('tr.review-short')
+  const tbody = document.querySelector('tbody')
+  const rows = document.querySelectorAll('tr.review-short')
 
   let sortedRows = Array.from(rows)
 
@@ -36,7 +36,7 @@ function sortRowsBy(columnHead, columnNum = 1, type_sort = 'text') {
     switcher_arrows(columnHead, arrows.down, arrows.up)
   }
 
-  let sortedTbody	= document.createElement('tbody')
+  const sortedTbody	= document.createElement('tbody')
 
   for (let i = 0, n=sortedRows.length; i < n; i++) {
     sortedTbody.appendChild(sortedRows[i])
@@ -70,17 +70,17 @@ function quickSort(array, compareHandler = (a, b) => a > b) {
 
 function compareRows(tdNum, type, asc = true, booleanMode = false) {
   return function(rowl, row2) {
-    let tdChild = `td:nth-child(${tdNum})`
-    let textRowOne = rowl.querySelector(tdChild).firstElementChild.textContent
-    let textRowTwo = row2.querySelector(tdChild).firstElementChild.textContent
-    let [valueOne, valueTwo] = set_type(textRowOne, textRowTwo, type)
+    const tdChild = `td:nth-child(${tdNum})`
+    const textRowOne = rowl.querySelector(tdChild).firstElementChild.textContent
+    const textRowTwo = row2.querySelector(tdChild).firstElementChild.textContent
+    const [valueOne, valueTwo] = set_type(textRowOne, textRowTwo, type)
 
     if (booleanMode) {
       // quickSort need boolean
       return asc ? valueOne > valueTwo : valueOne < valueTwo
     } else {
       // ref sort need -1 0 1 like <=>
-      let order = (asc) ? 1 : -1
+      const order = (asc) ? 1 : -1
       if (valueOne > valueTwo) return 1 * order
       if (valueOne < valueTwo) return -1 * order
       return 0
@@ -96,7 +96,7 @@ function set_type(textValOne, textValTwo, type = 'text') {
 }
 
 function hiddenArrowsOnColumn(columnClass) {
-  let column = document.querySelector(columnClass)
+  const column = document.querySelector(columnClass)
   if (!column) return
 
   column.querySelector(arrows.up).classList.add('hide')
