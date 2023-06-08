@@ -35,7 +35,6 @@ RSpec.describe Dashboard::UsersController, type: :controller do
             end
           end
 
-
           context 'change type to User' do
             let!(:admins) { (create_list(:user, 2, type: "Admin")) }
             let(:make_user) { patch :change_type, params: { user: { ids: admins.map(&:id), type: "User" } } }

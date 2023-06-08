@@ -20,7 +20,8 @@
       th Views
       td = @review.stat.views
 
-  = simple_format(@review.body, class: 'content m-2')
+  .content.px-2
+    = simple_format(@review.body)
 
   - if policy(@review).update?
     ul.review-actions.my-4

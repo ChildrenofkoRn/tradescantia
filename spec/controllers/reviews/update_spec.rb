@@ -17,26 +17,135 @@ RSpec.describe ReviewsController, type: :controller do
 
         context 'with valid attributes' do
 
-          it "assigns the review" do
-            review_update
-            expect(assigns(:review)).to eq review
+          context 'without link' do
+            it "assigns the review" do
+              review_update
+              expect(assigns(:review)).to eq review
+            end
+
+            it 'review saved with modified attributes' do
+              review_update
+              review.reload
+
+              expect(review.title).to eq new_attrs_review[:title]
+              expect(review.body).to eq new_attrs_review[:body]
+            end
+
+            it 'didn\'t saves a new review to DB' do
+              expect { review_update }.to_not change(Review, :count)
+            end
+
+            it 'redirects to show view' do
+              review_update
+              expect(response).to redirect_to review
+            end
           end
 
-          it 'review saved with modified attributes' do
-            review_update
-            review.reload
+          context 'with link' do
+            let(:init_attrs_review) { attributes_for(:review).merge(link_attributes: attributes_for(:link) ) }
+            let(:new_attrs_link) { { title: 'Nirvana (1997)', url: 'https://www.imdb.com/title/tt0119794/' } }
+            let(:new_attrs_review) { attributes_for(:review).merge(link_attributes: new_attrs_link) }
 
-            expect(review.title).to eq new_attrs_review[:title]
-            expect(review.body).to eq new_attrs_review[:body]
+            it "assigns the review" do
+              review_update
+              expect(assigns(:review)).to eq review
+            end
+
+            it 'review saved with modified attributes' do
+              review_update
+              review.reload
+
+              # review
+              expect(review.title).to eq new_attrs_review[:title]
+              expect(review.body).to eq new_attrs_review[:body]
+              # link
+              expect(review.link.title).to eq new_attrs_link[:title]
+              expect(review.link.url).to eq new_attrs_link[:url]
+            end
+
+            it 'didn\'t saves a new review to DB' do
+              expect { review_update }.to_not change(Review, :count)
+            end
+
+            it 'didn\'t saves a new link to DB' do
+              expect { review_update }.to_not change(Link, :count)
+            end
+
+            it 'redirects to show view' do
+              review_update
+              expect(response).to redirect_to review
+            end
           end
 
-          it 'didn\'t saves a new review to DB' do
-            expect { review_update }.to_not change(Review, :count)
+          context 'add link' do
+            let(:new_link) { attributes_for(:link) }
+            let(:new_attrs_review) { { link_attributes: new_link } }
+
+            it "assigns the review" do
+              review_update
+              expect(assigns(:review)).to eq review
+            end
+
+            it 'review saved with link' do
+              review_update
+              review.reload
+
+              # review hasnt changed
+              expect(review.title).to eq init_attrs_review[:title]
+              expect(review.body).to eq init_attrs_review[:body]
+              # link was created
+              expect(review.link.title).to eq new_link[:title]
+              expect(review.link.url).to eq new_link[:url]
+            end
+
+            it 'didn\'t saves a new review to DB' do
+              expect { review_update }.to_not change(Review, :count)
+            end
+
+            it 'saves a new link to DB' do
+              expect { review_update }.to change(Link, :count).by(1)
+            end
+
+            it 'redirects to show view' do
+              review_update
+              expect(response).to redirect_to review
+            end
           end
 
-          it 'redirects to show view' do
-            review_update
-            expect(response).to redirect_to review
+          context 'delete link' do
+            let(:init_attrs_review) { attributes_for(:review).merge(link_attributes: attributes_for(:link) ) }
+            let(:new_attrs_link) { { id: review.link.id, "_destroy": "true" } }
+            let(:new_attrs_review) { init_attrs_review.merge(link_attributes: new_attrs_link) }
+
+            it "assigns the review" do
+              review_update
+              expect(assigns(:review)).to eq review
+            end
+
+            it 'review saved with modified attributes' do
+              review_update
+              review.reload
+
+              # review
+              expect(review.title).to eq init_attrs_review[:title]
+              expect(review.body).to eq init_attrs_review[:body]
+
+              # link doesnt exist
+              expect(review.link).to be_nil
+            end
+
+            it 'didn\'t saves a new review to DB' do
+              expect { review_update }.to_not change(Review, :count)
+            end
+
+            it 'delete the link from DB' do
+              expect { review_update }.to change(Link, :count).by(-1)
+            end
+
+            it 'redirects to show view' do
+              review_update
+              expect(response).to redirect_to review
+            end
           end
         end
 

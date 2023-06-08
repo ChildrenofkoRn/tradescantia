@@ -1,4 +1,4 @@
-- avg  = resource&.stat.rank_avg
+- avg  = resource&.stat.rank_avg.round(2)
 - count = resource&.stat.ranks_count
 
 - if policy(resource).ranking?

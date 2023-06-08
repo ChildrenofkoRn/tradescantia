@@ -8,7 +8,6 @@ feature 'User can create review', %q{
 
   describe 'Authenticated' do
 
-    # TODO add context Invalid
     describe 'as User' do
       given(:user) { create(:user) }
 
