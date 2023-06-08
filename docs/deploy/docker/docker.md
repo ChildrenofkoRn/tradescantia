@@ -38,6 +38,9 @@ make restart s=postgres
 make stop
 # or
 make stop s=rediska
+
+# Make dump production db:
+make pg_dump
 ```
 
 ### Dockerfile

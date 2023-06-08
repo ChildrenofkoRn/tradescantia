@@ -1,5 +1,5 @@
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
-.PHONY: help build up start restart stop down ps logs/db logs/redis psql redis-cli shell/db shell/redis health/postgres health/redis
+.PHONY: help build up start restart stop down ps logs/db logs/redis psql redis-cli shell/db shell/redis health/postgres health/redis pg_dump
 help:
 	make -pRrq  -f $(THIS_FILE) : 2>/dev/null | awk -v RS= -F: '/^# Files/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 build:
@@ -36,3 +36,5 @@ health/postgres:
 	docker inspect --format='{{json .State.Health}}' $$(docker compose ps -q postgres)
 health/redis:
 	docker inspect --format='{{json .State.Health}}' $$(docker compose ps -q rediska)
+pg_dump:
+	docker compose -f docker-compose.yml exec postgres pg_dump -U deployer tradescantia_production > tradescantia_prod_`date +%d-%m-%Y"_"%H_%M_%S`.sql
