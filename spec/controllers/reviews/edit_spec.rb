@@ -9,6 +9,7 @@ RSpec.describe ReviewsController, type: :controller do
       before { login(user) }
 
       # TODO split context on Link exists/no exists
+      # TODO add context Invalid
       context 'by author' do
         let!(:review) { create(:review, author: user) }
         before  { get :edit, params: { id: review } }

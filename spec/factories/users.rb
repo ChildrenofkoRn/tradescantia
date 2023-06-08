@@ -13,7 +13,8 @@ FactoryBot.define do
       confirmed_at { nil }
     end
 
-    factory :admin do
+    # set STI class
+    factory :admin, class:Admin do
       type { 'Admin' }
     end
 
