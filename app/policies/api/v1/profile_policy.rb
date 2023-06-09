@@ -1,4 +1,4 @@
-class Api::ProfilePolicy < Api::BasePolicy
+class Api::V1::ProfilePolicy < Api::V1::BasePolicy
 
   class Scope < Scope
     def resolve

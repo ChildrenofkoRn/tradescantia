@@ -118,6 +118,8 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+RSpec::Matchers.define_negated_matcher :not_change, :change
+
 # module FactoryBot::Syntax::Methods
 #
 #   def with_nested_attributes_for(*args)
