@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 (June 09, 2023)
+* Added Review resource to API (show & update)
+* Minor changes & fixes
+* Admin Dashboard to manage Users
+
 ## 0.3.1 (June 01, 2023)
 * Added `whenever` to the capistrano tasks
 * Documentation supplemented
