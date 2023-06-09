@@ -1,4 +1,4 @@
-class Api::ReviewPolicy < Api::BasePolicy
+class Api::V1::ReviewPolicy < Api::V1::BasePolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

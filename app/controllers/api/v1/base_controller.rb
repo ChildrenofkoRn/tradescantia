@@ -25,7 +25,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def authorize(record, ...)
-    super([:api, record], ...)
+    super([:api, :v1, record], ...)
   end
 
 end
