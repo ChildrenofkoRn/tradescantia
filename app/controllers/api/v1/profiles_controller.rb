@@ -8,7 +8,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   end
 
   def index
-    users = policy_scope(User, policy_scope_class: Api::ProfilePolicy::Scope)
+    users = policy_scope(User, policy_scope_class: Api::V1::ProfilePolicy::Scope)
                               .page(params[:page]).includes(:reviews, :ranks)
     serialize(users, params: { owner: current_resource_owner } )
   end

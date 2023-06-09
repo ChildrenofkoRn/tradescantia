@@ -1,0 +1,35 @@
+.users
+  h1= 'Users:'
+
+  = paginate @users
+
+  ul.actions.disabled-panel
+    li
+      = button_tag "Uncheck All", class: "uncheck-all btn btn-outline-primary"
+    li
+      = button_tag "Make Admin", class: "make-admin btn btn-outline-primary"
+    li
+      = button_tag "Make User", class: "make-user btn btn-outline-primary"
+
+  .resource-errors.alert.alert-danger.hide
+    | Some Errors
+
+  table.table
+    thead.thead-light
+      tr
+        th *
+        th Username
+        th Type
+        th Email
+        th Created
+        th Updated
+    - @users.each do |user|
+      tr *{ class: "user type-#{user.type}", data: { 'user-id': user.id } }
+        td= check_box_tag 'user-flag', false
+        td.username= user.username
+        td.type= user.type
+        td= user.email
+        td= user.created_at.to_formatted_s(:long)
+        td= user.updated_at.to_formatted_s(:long)
+
+  = paginate @users

@@ -8,7 +8,6 @@ RSpec.describe ReviewsController, type: :controller do
       let(:user) { create(:user) }
       before { login(user) }
 
-      # TODO split context on Link exists/no exists
       context 'by author' do
         let!(:review) { create(:review, author: user) }
         before  { get :edit, params: { id: review } }

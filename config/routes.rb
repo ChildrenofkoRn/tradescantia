@@ -31,6 +31,16 @@ Rails.application.routes.draw do
       resources :profiles, only: [:index] do
         get :me, on: :collection
       end
+      resources :reviews, only: %i[ show update ]
+    end
+  end
+
+
+  namespace :dashboard do
+    resources :users, only: [:index] do
+      collection do
+        patch :change_type
+      end
     end
   end
 

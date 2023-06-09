@@ -1,0 +1,19 @@
+.disabled-panel {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.type-Admin {
+  background-color: #e9e2f7;
+}
+
+ul.actions {
+  padding-inline-start: 0;
+  margin-block-end: auto;
+
+  li {
+    display:inline;
+    margin-right: 0.4em;
+  }
+}

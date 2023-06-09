@@ -9,7 +9,7 @@ RSpec.describe ReviewsController, type: :controller do
       before { login(user) }
 
       context 'by author' do
-        let!(:review) { create(:review, author: user) }
+        let!(:review) { create(:review, :with_link, author: user) }
         let(:review_delete) { delete :destroy, params: { id: review } }
 
         it "assigns the review" do
@@ -19,6 +19,10 @@ RSpec.describe ReviewsController, type: :controller do
 
         it 'delete the review from DB' do
           expect { review_delete }.to change(Review, :count).by(-1)
+        end
+
+        it 'delete the link from DB' do
+          expect { review_delete }.to change(Link, :count).by(-1)
         end
 
         it 'renders index view' do

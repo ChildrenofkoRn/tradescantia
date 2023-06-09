@@ -54,6 +54,11 @@
   > .content {
     font-family: 'Nunito Sans', sans-serif;
     line-height: 1.6em;
+
+    blockquote {
+      background-color: #dfe9ff;
+      padding: 1em 2em;
+    }
   }
 }
 

@@ -4,18 +4,16 @@ class ErrorsController < ApplicationController
 
   def show
     @exception = request.env["action_dispatch.exception"]
-    @error = @exception.try(:status_code) ||
-                    ActionDispatch::ExceptionWrapper.new(
-                      request.env, @exception
-                    ).status_code
+    @status = @exception.try(:status_code) ||
+                    ActionDispatch::ExceptionWrapper.new(request.env, @exception).status_code
 
-    render view_for_error(@error), status: @error, content_type: 'text/html'
+    render view_for_error(@status), status: @status, content_type: 'text/html'
   end
 
   private
 
-  def view_for_error(code)
-    SUPPORTED_ERRORS.fetch(code, 404).to_s
+  def view_for_error(status)
+    SUPPORTED_ERRORS.include?(status) ? status.to_s : 'error'
   end
 
 end
