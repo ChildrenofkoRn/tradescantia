@@ -28,19 +28,22 @@ Agile with User stories: [Pivotal Tracker][tracker]
 - Some statistics for reviews (views & rating)
 - Sorting the list of reviews by title/rank (JS, base implementation quick sort)
 - Caching for the reviews page
-- API for profiles with Doorkeeper & JSON:API Serialization
+- API for Profiles & Reviews with Doorkeeper & JSON:API Serialization
 - Custom pages for errors
 - Deploy with capistrano
+- Admin Dashboard to manage Users (JS)
 
 **Upcoming plans:**
-- Admin Dashboard
 - Badges
 - Tags
 - Search via ElasticSearch
-- 
+- [Improvements and fixes](https://shorturl.at/jlzH2)
 
 **Note**  
 Some gems were not used intentionally, like `decent_exposure` (simplifies development and testing) or `ActionText` (easy to install and use, nothing interesting).
+
+### Preview
+ [Tradescantia](https://tradescantia.olusha.space/reviews)
 
 ### Deploy
 Read more about deploying the app here: [DEPLOY.md](docs/deploy/DEPLOY.md)  
