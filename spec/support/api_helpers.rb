@@ -4,8 +4,8 @@ module ApiHelpers
       'ACCEPT'       => 'application/json' }
   end
 
-  def json
-    @json ||= JSON.parse(response.body)["data"]
+  def json(key = "data")
+    @json ||= JSON.parse(response.body)[key]
   end
 
   def do_request(action, path, ...)

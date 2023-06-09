@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :profiles, only: [:index] do
         get :me, on: :collection
       end
+      resources :reviews, only: %i[ show ]
     end
   end
 
