@@ -19,6 +19,8 @@ describe 'Review API', type: :request do
         get api_path, params: { access_token: token }, headers: headers
       end
 
+      #TODO repeat for Admin and Author
+
       it_behaves_like 'API Successfulable'
 
       it_behaves_like 'API Returns fields' do

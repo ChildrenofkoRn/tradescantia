@@ -5,7 +5,7 @@ module ApiHelpers
   end
 
   def json(key = "data")
-    @json ||= JSON.parse(response.body)[key]
+    JSON.parse(response.body)[key]
   end
 
   def do_request(action, path, ...)

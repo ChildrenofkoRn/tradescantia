@@ -6,11 +6,11 @@ class Api::V1::BaseController < ApplicationController
 
   def doorkeeper_unauthorized_render_options(error: nil)
     message = error.nil? ? "Not authorized" : error
-    { json: { data: { errors: message } } }
+    { json: { errors: message } }
   end
 
   def user_not_authorized
-    error = { data: { errors: "You are unauthorized for this action." } }
+    error = { errors: "You are unauthorized for this action." }
     render json: error, status: :unauthorized
   end
 

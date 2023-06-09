@@ -10,6 +10,14 @@ class Api::V1::ReviewsController < Api::V1::BaseController
     serialize(@review, options)
   end
 
+  def update
+    if @review.update(review_params)
+      serialize(@review)
+    else
+      render json: { errors: @review.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def authorize_review!
@@ -18,6 +26,10 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 
   def load_review
     @review = Review.find(params[:id])
+  end
+
+  def review_params
+    params.require(:review).permit(:title, :body)
   end
 
   def serialize(...)
